@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="help.css">
+    <title>HelpDoc</title>
+</head>
+
+<body>
+<h1>Forbidden Island Game Help Document</h1>
+<div class="card" onclick="showContent('intro')">
+    <div class="title">1. Game Introduction</div>
+</div>
+<div class="card" onclick="showContent('guide')">
+    <div class="title">2. Operating Instruction</div>
+</div>
+<div class="card" onclick="showContent('cards')">
+    <div class="title">3. Card Introduction</div>
+</div>
+<div class="card" onclick="showContent('victory')">
+    <div class="title">4. Winning Condition</div>
+</div>
+<div class="card" onclick="showContent('failure')">
+    <div class="title">5. Failure Condition</div>
+</div>
+
+<!-- 详细内容显示 -->
+<div id="content" class="content">
+    <div class="title" id="contentTitle"></div>
+    <div id="contentBody"></div>
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+</div>
+
+<script>
+    const IMG_BASE = "../../../../images/help_img/";
+
+    const contentData = {
+        "intro": {
+            "title": "Game Introduction",
+            content: [
+                {type: "h2", value: "The Game Background"},
+                {type: "text", value: "Forbidden Island was the secluded retreat " +
+                        "of an ancient mystical empire known as " +
+                        "the Archeans. Legend has it that " +
+                        "the Archeans possessed the ability to control the " +
+                        "Earth’s core elements – fire, wind, water, and " +
+                        "earth – through four sacred treasures: The Crystal " +
+                        "of Fire, The Statue of the Wind, The Ocean’s " +
+                        "Chalice, and The Earth Stone. Because of their " +
+                        "potential to cause catastrophic damage if they " +
+                        "fell into enemy hands, the Archeans kept the " +
+                        "treasures secretly hidden on Forbidden Island and " +
+                        "designed it to sink if intruders ever attempted to " +
+                        "claim them. In the centuries since the mysterious " +
+                        "collapse of their empire, Forbidden Island " +
+                        "remained undiscovered ... until now."},
+                {type: "h2", value: "The Game Objective"},
+                {type: "text", value: "Your team of adventurers must work together to keep Forbidden Island from sinking, in order "+
+                    "to buy enough time to capture its four treasures. Once you’ve captured them, you must make it "+
+                    "to Fools’ Landing and escape by helicopter to win. If however, the island sinks before you can "+
+                    "complete your tasks, the mission ends in defeat!"},
+                { type: "h2", value: "Explanation of Terms" },
+                { type: "list", style: "dot", items: [
+                        { text: "Treasures: Four treasure markers representing earth, water, fire, and wind." }
+                        ]},
+                { type: "image", src: "../images/help_img/treasures.png" },
+                { type: "list", style: "dot", items: [
+                        { text: "Treasure Deck: Cards with a red back." },
+                        { text: "Flood Deck: Cards with a dark blue back." },
+                        { text: "Player Cards: Six cards with character names and abilities written on them."}
+                    ]},
+                { type: "image", src: "../images/help_img/Deck.png" },
+                { type: "list", style: "dot", items: [
+                        { text: "Tiles: 24 square paper pieces used to form the map of Forbidden Island." },
+                        { text: "Normal State: Indicates that the tile is in its colored side up and has not been hit by flood. "
+                            +"Players can walk on it." },
+                        { text: "Flooded State: Indicates that the tile is in its blue and white side up and "
+                            +"has been hit by flood but can still be saved.\nNOTE: In the flooded state, "
+                                + "players can still win by playing the Helicopter Lit card on Fool's Landing." },
+                        { text: "Sunken State: At this point, the tile and the corresponding flood card have been " +
+                                "removed from the game. The area on the tile is now blank. Players cannot stand on it," +
+                                " except for the Diver, who can pass through it." }
+                        ]},
+                { type: "image", src: "../images/help_img/normal_flood.png" },
+                { type: "list", style: "dot", items: [
+                        { text: "Shore up：Players spend 1 action point to flip a flooded tile (blue and white side up) "+
+                                "to the normal state (colored side up)."+"\nNOTE: Unless using the Sandbags special "+
+                                "action card, players can only pump adjacent tiles. " },
+                        { text: "Adjacent: The tile the player is standing on, and the tiles above, below, left, "+
+                                "and right of the player. These five tiles are adjacent to the player and can be pumped or moved to."+
+                                "\nNOTE: Except for the Explorer, who can move to and pump diagonally adjacent tiles." }
+                    ]},
+                { type: "imageRow", images:["../images/help_img/adjacent.png", "../images/help_img/shore_up.png"]},
+
+                { type: "h2", value: "Game Preparation" },
+                { type: "list", style: "number", items: [
+                        { text: "Shuffle the 24 Island tiles and randomly " +
+                                "place them face up (non blue and white side) into a grid as follows: First make a 4 x 4 square " +
+                                "of tiles in the center of the playing area. Then place 2 tiles next to each of the 2 middle tiles on " +
+                                "every side of the square. (Important Note: Leave a small gap between the tiles.) This forms " +
+                                "Forbidden Island and your pawns will move on it like a game board." },
+                        { text: "Place the 4 treasure figurines – The Earth Stone, " +
+                                "The Statue of the Wind, The Crystal of Fire, and The Ocean’s Chalice – around the island." },
+                        { text: "Separate the cards into three decks according to card " +
+                                "back: Flood deck (blue back), Treasure deck (red back), and Adventurer cards (6 cards).",
+                        image: "../images/help_img/island.png"},
+
+                        { text: "Shuffle the Flood deck and place it face " +
+                                "down on one side of the island to form the Flood draw pile. Draw the top 6 cards (1 at a time) " +
+                                "and place them face up next to the draw pile to form the Flood discard pile. For each card " +
+                                "drawn, flip the corresponding Island tile over to its “flooded” (blue and white) side." },
+                        { text: "Shuffle the 6 Adventurer cards and randomly deal 1 to each player." +
+                                "The pawn matching the color of your Adventurer card will be placed on the " +
+                                "corresponding Island tile. (Look for the matching pawn icon in the lower right " +
+                                "corner of the Gates and Fools’ Landing tiles.)\n"+
+                                "Note: It’s OK to start on a flooded tile.",
+                        image: "../images/help_img/players.png"},
+
+                        { text: "Thoroughly shuffle the Treasure deck and deal 2 cards to each player."+
+                                "If anyone gets a Waters Rise! card, give them a replacement card and shuffle " +
+                                "the Waters Rise! card back into the Treasure deck. Place the " +
+                                "Treasure deck face down by one side of the island. \nNOTE: There " +
+                                "will be a Treasure discard pile right next to the Treasure deck." },
+                        { text: "Place the Water Level marker " +
+                                "on the left side of the Water Meter and set it to the appropriate starting " +
+                                "difficulty level, according to the type of game you want to play. \n(For example, " +
+                                "if this is your first time playing a cooperative game, set it to the Novice level.)" }
+                    ]},
+                { type: "imageRow", images: ["../images/help_img/water_level.png", "../images/help_img/cards.png"]},
+
+                { type: "h2", value: "Game Over" },
+                { type: "text", value: "At any point, if the victory condition is met, it means a total victory. "+
+                        "If the failure condition is reached, the game is over and it immediately ends." }
+            ]
+        },
+
+        "guide": {
+            "title": "操作指南",
+            "content": [
+                {"type": "text", "value": "1. 游戏操作："},
+                {"type": "list", "style": "number", "items": [
+                        {"text": "开始游戏：点击“开始游戏”按钮。", "image": "images/start.png"},
+                        {"text": "设置玩家人数：选择2人、3人或4人。", "image": "images/players.png"},
+                        {"text": "角色移动：点击目标岛屿进行移动。", "image": "images/move.png"},
+                        {"text": "加固岛屿：点击已淹没岛屿进行修复。", "image": "images/shoreup.png"}
+                    ]},
+                {"type": "text", "value": "2. 回合流程："},
+                {"type": "list", "style": "dot", "items": [
+                        {text: "行动阶段：玩家有3次行动点。"},
+                        {text: "抽牌阶段：抽取2张宝藏卡。"},
+                        {text: "抽洪水阶段：根据水位抽取洪水牌。"}
+                    ]}
+            ]
+        },
+
+        "cards": {
+            "title": "Card Introduction",
+            content: [
+                { type: "h2", value: "Overview of Card Types" },
+                { type: "list", style: "number", items: [
+                        { text: "Treasure Cards" },
+                        { text: "Special Action Cards" },
+                        { text: "Waters Rise! Cards" },
+                        { text: "Player Cards" },
+                        { text: "Flood Cards" }
+                    ]},
+
+                { type: "h2", value: "1. Treasure Cards" },
+                { type: "text", value: "There are 5 of each Treasure card in the Treasure deck. The " +
+                        "aim is to collect 4 of the same Treasure card in order to find the " +
+                        "corresponding treasure of Forbidden Island. You can give Treasure " +
+                        "cards to other players using the Give a Treasure Card action." },
+                { type: "image", src: "../images/help_img/four_treasure_cards.png" },
+
+                { type: "h2", value: "2. Special Action Cards" },
+                { type: "text", value: "There are 2 types of Special Action cards in the Treasure deck – " +
+                        "Helicopter Lifts (3) and Sandbags (2) – that will help your team during " +
+                        "the game. These cards are taken into your hand and can be played at " +
+                        "any time — even on another player’s turn. Playing a Special Action " +
+                        "card does not require an action. Discard these cards to the Treasure " +
+                        "discard pile immediately when played." },
+                { type: "text", value: "Note: You may use the power of a Special Action card if you are " +
+                        "forced to discard it." },
+
+                { type: "text", value: "The Special Action cards are:" },
+                { type: "list", style: "dot", items: [
+                        { text: "Helicopter Lift: Move any number of players from one tile to another. "+
+                                "This is used for all players to evacuate after standing on Fool's Landing to win. A total of 3 cards." },
+                        { text: "Sandbags: Immediately flip any one tile from flooded state to normal state. A total of 2." }
+                    ]},
+                { type: "image", src: "../images/help_img/special_cards.png" },
+
+                { type: "h2", value: "3. Waters Rise! Cards" },
+                { type: "text", value: "There are 3 Waters Rise! cards in the Treasure deck. When you draw a Waters " +
+                        "Rise! card, you must immediately do the following:" },
+                { type: "list", style: "number", items: [
+                        { text: "Move the Water Level marker up to cover the next tick mark on the " +
+                                "Water Meter. Note how many cards will now be drawn at the end of " +
+                                "your turn by looking at the number on the right of the meter." ,
+                        image: "../images/help_img/rise_level.png"},
+                        { text: "Take all of the cards from the Flood discard pile, shuffle them, and " +
+                                "then place them face down on top of the Flood draw pile. This means " +
+                                "that previously drawn cards will be drawn again soon!",
+                        images: "../images/help_img/shuffle_flood.png"},
+                        { text: "Discard the Waters Rise! card to the Treasure discard pile.",
+                        images: "../images/help_img/discard_rise.png"}
+                    ]},
+                { type: "text", value:"NOTE: "},
+                { type: "list", style: "dot", items: [
+                        { text: "If you draw a Waters Rise! card, you do not get a replacement card." },
+                        { text: "If you draw 2 Waters Rise! cards in a row, shuffle the Flood discard pile only once but" +
+                                "move the Water Level marker up 2 tick marks." },
+                        { text: "If you draw a Waters Rise! card but there are no cards in the Flood discard pile, just move"+
+                            " the Water Level marker up 1 tick mark." }
+                    ]},
+
+                { type: "h2", value: "4. Player Cards" },
+                { type: "text", value: "Each character has unique skills that can change the rules for moving, drawing, or passing cards." },
+                { type: "list", style: "dot", items: [
+                        { text: "Explorer: You can move and shore up diagonally." },
+                        { text: "Pilot: You can spend 1 action to fly to any tile, but you can only fly once per turn." },
+                        { text: "Messenger: You can give cards without having to be on the same tile." },
+                        { text: "Engineer: You can shore up 2 tiles for 1 action." },
+                        { text: "Diver: You can move through one or more adjacent missing and/or " +
+                                " flooded tiles for 1 action." },
+                        { text: "Navigator: You can move other players up to 2 adjacent tiles per action." }
+                    ]},
+                { type: "image", src: "../images/help_img/players.png" },
+
+                { type: "h2", value: "5. Flood Cards" },
+                { type: "text", value: "After drawing 2 Treasure cards, you must now take on the role of Forbidden " +
+                    "Island! Draw a number of cards from the top of the Flood draw pile equal to " +
+                    "the current Water Meter level. (For example, if the level is at 3, draw 3 cards.) " +
+                    "Draw cards 1 at a time and place them face up onto the Flood discard pile. For " +
+                    "each card drawn, find the matching Island tile and do one of the following:" },
+                { type: "list", style: "dot", items: [
+                        { text: "If the matching Island tile is un-flooded, flip it over to its flooded side." ,
+                        image: "../images/help_img/normal_flood_2.png"},
+                        { text: "If the matching Island tile is already flooded, it sinks into the abyss! Remove it and " +
+                                "the matching Flood card from the game and place them out of play" ,
+                        image: "../images/help_img/remove_island.png"}
+                    ]},
+                { type: "text", value: "NOTE: You cannot play a Sandbag card to save a flooded tile once you’ve revealed the " +
+                        "matching Flood card." },
+            ]
+        },
+
+        "victory": {
+            "title": "Winning Condition",
+            content: [
+                { type: "h2", value: "Winning Condition Introduction" },
+                { type: "list", style: "number", items: [
+                        { text: "The player obtains all 4 treasures: Fire, Water, Wind, Earth." },
+                        { text: "All players arrive at Fool's Landing tile." },
+                        { text: "One player must discard a Helicopter Lift " +
+                                "card to lift team off of Forbidden Island for the win!" }
+                    ]},
+                { type: "text", value: "NOTE: Even if the Fool’s Landing tile is submerged, "+
+                        "evacuation can still be completed to achieve victory." },
+                { type: "image", src: "../images/help_img/victory.png" }
+            ]
+        },
+
+        "failure": {
+            "title": "Failure Condition",
+            content: [
+                { type: "h2", value: "Failure Condition Introduction" },
+                { type: "text", value: "The game immediately fails if any of the following situations occur:" },
+                { type: "list", style: "number", items: [
+                        { text: "If both Temples, Caves, Palaces, or Gardens tiles sink" +
+                                " before you collect their respective treasures." },
+                        { text: "If the Fools’ Landing tile sinks." },
+                        { text: "If any player is on an Island tile that sinks and there is no adjacent tile to swim to." },
+                        { text: "If the water level reaches the skull and crossbones." }
+                    ]}
+            ]
+        }
+    };
+
+    function showContent(type) {
+        const data = contentData[type];
+        document.getElementById('contentTitle').innerText = data.title;
+        const container = document.getElementById('contentBody');
+        container.innerHTML = '';
+
+        data.content.forEach(item => {
+            if (item.type === 'text') {
+                const p = document.createElement('p');
+                p.textContent = item.value;
+                container.appendChild(p);
+            } else if (item.type === 'image') {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = "photo";
+                img.className = "screenshot";
+                container.appendChild(img);
+            } else if (item.type === 'imageRow') {
+                const row = document.createElement('div');
+                row.className = 'image-row';
+                item.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = "插图";
+                    row.appendChild(img);
+                });
+                container.appendChild(row);
+            } else if (item.type === 'list') {
+                const list = document.createElement(item.style === 'number' ? 'ol' : 'ul');
+                item.items.forEach(i => {
+                    const li = document.createElement('li');
+                    li.textContent = i.text;
+
+                    if (i.image) {
+                        const img = document.createElement('img');
+                        img.src = i.image;
+                        img.alt = "photo";
+                        img.className = "screenshot";
+                        li.appendChild(document.createElement("br"));
+                        li.appendChild(img);
+                    }
+                    list.appendChild(li);
+                });
+                container.appendChild(list);
+            } else if (item.type === 'h2') {
+                const h = document.createElement('h2');
+                h.textContent = item.value;
+                container.appendChild(h);
+            }
+        });
+
+        document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+        document.getElementById('content').style.display = 'block';
+    }
+
+    function goBack() {
+        document.querySelectorAll('.card').forEach(card => card.style.display = 'block');
+        document.getElementById('content').style.display = 'none';
+    }
+</script>
+</body>
+</html>
