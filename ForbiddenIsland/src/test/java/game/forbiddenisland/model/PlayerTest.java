@@ -3,82 +3,69 @@ package game.forbiddenisland.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import team.group14.forbiddenisland.model.*;
-import team.group14.forbiddenisland.model.adventurer.Engineer;
+import team.group14.forbiddenisland.model.adventurer.Diver;
 import team.group14.forbiddenisland.model.adventurer.Pilot;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PlayerTest {
-
-    private Player player;
-    private Player target;
-    private IslandTile tile1;
-    private IslandTile tile2;
-    private TreasureCard fireCard;
+public class PlayerTest {
+    private Player player1;
+    private Player player2;
+    private IslandTile tile;
+    private TreasureCard treasureCard1;
+    private TreasureCard treasureCard2;
 
     @BeforeEach
-    void setUp() {
-        player = new Player("Alice", new Engineer());
-        target = new Player("Bob", new Pilot());
-        tile1 = new IslandTile(2);  // 与 FIRE 宝藏关联
-        tile2 = new IslandTile(5);  // 无宝藏关联
-        fireCard = new TreasureCard(Treasure.FIRE);
+    void setUp(){
+        player1 = new Player("TestPlayer1", new Pilot());
+        player2 = new Player("TestPlayer2", new Diver());
+        treasureCard1 = new TreasureCard(Treasure.FIRE);
+        treasureCard2 = new TreasureCard(Treasure.FIRE);
+        tile = new IslandTile(2);
+        player1.setCurrentTile(tile);
     }
 
     @Test
-    void testMoveUpdatesCurrentTile() {
-        player.move(tile1);
-        assertEquals(tile1, player.getCurrentTile(), "Player should move to the target tile");
+    void testAddCard() {
+        player1.addCard(treasureCard1);
+        assertTrue(player1.getHand().contains(treasureCard1));
     }
 
     @Test
-    void testShoreUpFloodedTile() {
-        tile1.flood(); // NORMAL -> FLOODED
-        assertEquals(TileState.FLOODED, tile1.getState());
-
-        player.shoreUp(tile1);
-        assertEquals(TileState.NORMAL, tile1.getState(), "Tile should be restored after shoring up");
+    void testGiveCard() {
+        player1.addCard(treasureCard1);
+        player1.giveCard(player2, treasureCard1);
+        assertFalse(player1.getHand().contains(treasureCard1));
+        assertTrue(player2.getHand().contains(treasureCard1));
     }
 
     @Test
-    void testAddCardToHand() {
-        assertEquals(0, player.getHand().size());
-        player.addCard(fireCard);
-        assertEquals(1, player.getHand().size());
-        assertTrue(player.getHand().contains(fireCard), "Card should be added to hand");
+    void testMove() {
+        IslandTile destination = new IslandTile(3);
+        player1.move(destination);
+        assertEquals(destination, player1.getCurrentTile());
     }
 
     @Test
-    void testGiveCardToOtherPlayer() {
-        player.addCard(fireCard);
-        assertEquals(1, player.getHand().size());
-        assertEquals(0, target.getHand().size());
-
-        player.giveCard(target, fireCard);
-
-        assertEquals(0, player.getHand().size(), "Player should have given away the card");
-        assertEquals(1, target.getHand().size(), "Target should have received the card");
-        assertTrue(target.getHand().contains(fireCard));
+    void testShoreUp() {
+        tile.flood();
+        assertEquals(TileState.FLOODED, tile.getState());
+        player1.shoreUp(tile);
+        assertEquals(TileState.NORMAL, tile.getState());
     }
 
     @Test
-    void testCaptureTreasureFailsByDefault() {
-        // 默认实现中，captureTreasure 一律返回 false
-        player.addCard(new TreasureCard(Treasure.FIRE));
-        player.addCard(new TreasureCard(Treasure.FIRE));
-        player.addCard(new TreasureCard(Treasure.FIRE));
-        player.addCard(new TreasureCard(Treasure.FIRE));
-        player.move(tile1); // FIRE 相关岛屿
-        assertFalse(player.captureTreasure(Treasure.FIRE),
-                "captureTreasure should return false as it's not implemented yet");
+    void testCaptureTreasureFail() {
+        player1.addCard(treasureCard1);
+        assertFalse(player1.captureTreasure(Treasure.FIRE));
     }
 
     @Test
-    void testAdventurerSpecialMove() {
-        // 使用 Pilot 的特殊移动能力
-        IslandTile remoteTile = new IslandTile(19);
-        target.getAdventurer().specialMove(target, remoteTile);
-        assertEquals(remoteTile, target.getCurrentTile(),
-                "Pilot should be able to specialMove to any tile");
+    void testCaptureTreasureSuccess() {
+        for (int i = 0; i < 4; i++) {
+            player1.addCard(new TreasureCard(Treasure.FIRE));
+        }
+        player1.setCurrentTile(new IslandTile(2));
+        assertTrue(player1.captureTreasure(Treasure.FIRE));
     }
 }

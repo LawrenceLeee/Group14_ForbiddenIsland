@@ -1,11 +1,11 @@
 package team.group14.forbiddenisland.service;
 
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Data;
+import lombok.Getter;
 import team.group14.forbiddenisland.controller.LogController;
 import team.group14.forbiddenisland.model.*;
 import team.group14.forbiddenisland.model.adventurer.*;
@@ -20,6 +20,7 @@ public class Director {
 
     public static final double WIDTH = 1024, HEIGHT = 1024;
 
+    @Getter
     private static final Director instance = new Director();
     private Stage stage;
     private GameScreen gameScreen = new GameScreen();
@@ -39,10 +40,6 @@ public class Director {
     private GameState gameState;
 
     private Director() {
-    }
-
-    public static Director getInstance() {
-        return instance;
     }
 
     public void init(Stage stage) {
@@ -221,39 +218,14 @@ public class Director {
         if (gameState.isGameOver()) {
             gameOver();
         }
-//        drawTreasureCard(players.get(gameState.getCurrentPlayerIndex()));
-//        drawFloodCards();
     }
 
-//    private void drawTreasureCard(Player player) {
-//        if (gameState.getPhase().equals("DRAW_TREASURE")) {
-//            for (int i = 0; i < 2; i++) {
-//                TreasureCard card = treasureDeck.draw();
-//                if (card != null) {
-//                    player.addCard(card);
-//                    if (card.getSpecialType() == SpecialCardType.WATERS_RISE) {
-//                        waterMeter.increaseLevel();
-//                        floodDeck.shuffleInDiscardPile();
-//                    }
-//                }
-//            }
-//            gameState.nextPhase(); // 进入抽洪水牌阶段
-//        }
-//    }
-//
-//    private void drawFloodCards() {
-//        if (gameState.getPhase().equals("DRAW_FLOOD")) {
-//            int floodCount = waterMeter.getFloodDrawCount();
-//            for (int i = 0; i < floodCount; i++) {
-//                FloodCard floodCard = floodDeck.draw();
-//                IslandTile tile = getTileByName(floodCard.getIslandName());
-//                if (tile != null) {
-//                    tile.flood();
-//                }
-//            }
-//            gameState.nextTurn(); // 进入下一个玩家回合
-//        }
-//    }
-
+    // 测试用，不加跑不起来
+    public void initTestGame() {
+        this.playerNum = 2;
+        this.players = new ArrayList<>();
+        players.add(new Player("TestPlayer1", new Diver()));
+        players.add(new Player("TestPlayer2", new Pilot()));
+    }
 }
 

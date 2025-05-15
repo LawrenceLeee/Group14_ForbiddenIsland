@@ -28,10 +28,6 @@ public class IslandTile {
         }
     }
 
-    public TileState getState() {
-        return state;
-    }
-
     // 被洪水影响时调用
     public void flood() {
         if (state == TileState.NORMAL) {

@@ -1,17 +1,16 @@
 package team.group14.forbiddenisland.model;
 
+import lombok.Data;
+
+@Data
 public class WaterMeter {
     private int level;  // 当前水位等级
 
     // 定义不同水位下抽取洪水牌的数量（例如：Novice=2, Normal=3, Elite=4, Legendary=5）
-    private int[] floodDrawNumbers = {2, 3, 4, 5};
+    private final int[] floodDrawNumbers = {2, 3, 4, 5};
 
     public WaterMeter(int initialLevel) {
         this.level = initialLevel;
-    }
-
-    public int getLevel() {
-        return level;
     }
 
     // 水位上升
