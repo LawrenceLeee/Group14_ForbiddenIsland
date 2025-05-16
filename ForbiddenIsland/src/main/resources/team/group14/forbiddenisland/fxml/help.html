@@ -12,7 +12,7 @@
 <div class="card" onclick="showContent('intro')">
     <div class="title">1. Game Introduction</div>
 </div>
-<div class="card" onclick="showContent('guide')">
+<div class="card" onclick="showGuideSlider()">
     <div class="title">2. Operating Instruction</div>
 </div>
 <div class="card" onclick="showContent('cards')">
@@ -24,6 +24,9 @@
 <div class="card" onclick="showContent('failure')">
     <div class="title">5. Failure Condition</div>
 </div>
+<div id="returnToGame" style="text-align: center; margin-bottom: 20px;">
+    <button class="back-button" onclick="javaBridge.goBackToMain()">Return to Game</button>
+</div>
 
 <!-- 详细内容显示 -->
 <div id="content" class="content">
@@ -33,10 +36,24 @@
         <button class="back-button" onclick="goBack()">Back</button>
     </div>
 </div>
+<!--新增操作指南滑动组件-->
+<div id="guideSlider" class="slider-container" style="display: none;">
+    <div class="slider-arrow left" id="prevArrow" onclick="prevGuideSlide()">&#10094;</div>
+
+    <div class="slider-content">
+        <img id="guideImage" class="slider-image">
+        <div id="guideCaption" class="slider-caption"></div>
+    </div>
+
+    <div class="slider-arrow right" id="nextArrow" onclick="nextGuideSlide()">&#10095;</div>
+    <div style="text-align:center; margin-top: 15px;">
+        <button class="back-button" onclick="exitGuideSlider()">Back</button>
+    </div>
+
+    <div class="slider-dots" id="sliderDots"></div>
+</div>
 
 <script>
-    const IMG_BASE = "../../../../images/help_img/";
-
     const contentData = {
         "intro": {
             "title": "Game Introduction",
@@ -137,33 +154,14 @@
             ]
         },
 
-        "guide": {
-            "title": "操作指南",
-            "content": [
-                {"type": "text", "value": "1. 游戏操作："},
-                {"type": "list", "style": "number", "items": [
-                        {"text": "开始游戏：点击“开始游戏”按钮。", "image": "images/start.png"},
-                        {"text": "设置玩家人数：选择2人、3人或4人。", "image": "images/players.png"},
-                        {"text": "角色移动：点击目标岛屿进行移动。", "image": "images/move.png"},
-                        {"text": "加固岛屿：点击已淹没岛屿进行修复。", "image": "images/shoreup.png"}
-                    ]},
-                {"type": "text", "value": "2. 回合流程："},
-                {"type": "list", "style": "dot", "items": [
-                        {text: "行动阶段：玩家有3次行动点。"},
-                        {text: "抽牌阶段：抽取2张宝藏卡。"},
-                        {text: "抽洪水阶段：根据水位抽取洪水牌。"}
-                    ]}
-            ]
-        },
-
         "cards": {
             "title": "Card Introduction",
             content: [
                 { type: "h2", value: "Overview of Card Types" },
                 { type: "list", style: "number", items: [
-                        { text: "Treasure Cards" },
-                        { text: "Special Action Cards" },
-                        { text: "Waters Rise! Cards" },
+                        { text: "Treasure Cards (Treasure Deck)" },
+                        { text: "Special Action Cards (Treasure Deck)" },
+                        { text: "Waters Rise! Cards (Treasure Deck)" },
                         { text: "Player Cards" },
                         { text: "Flood Cards" }
                     ]},
@@ -173,7 +171,7 @@
                         "aim is to collect 4 of the same Treasure card in order to find the " +
                         "corresponding treasure of Forbidden Island. You can give Treasure " +
                         "cards to other players using the Give a Treasure Card action." },
-                { type: "image", src: "../images/help_img/four_treasure_cards.png" },
+                { type: "image", src: "../images/help_img/match.png" },
 
                 { type: "h2", value: "2. Special Action Cards" },
                 { type: "text", value: "There are 2 types of Special Action cards in the Treasure deck – " +
@@ -217,7 +215,18 @@
                             " the Water Level marker up 1 tick mark." }
                     ]},
 
-                { type: "h2", value: "4. Player Cards" },
+                { type: "h2", value: "4. Supplementary Explanation of Treasure Deck"},
+                { type: "text", value: "When the treasure deck runs out: "},
+                { type: "text", value: "When the last card of the Treasure deck is drawn, " +
+                        "immediately shuffle the Treasure discard pile and turn it over to form a new Treasure deck."},
+                { type: "text", value: "Hand Limit: "},
+                { type: "text", value: "You may only have 5 cards in your hand, " +
+                        "including Treasure and Special Action cards. If you ever find that you have 6 or more cards " +
+                        "(for example because you drew more cards or received cards from another player) " +
+                        "you must immediately choose and discard the excess to the Treasure discard pile. " +
+                        "If you choose to discard a Special Action card, you may use its action before discarding."},
+
+                { type: "h2", value: "5. Player Cards" },
                 { type: "text", value: "Each character has unique skills that can change the rules for moving, drawing, or passing cards." },
                 { type: "list", style: "dot", items: [
                         { text: "Explorer: You can move and shore up diagonally." },
@@ -230,7 +239,7 @@
                     ]},
                 { type: "image", src: "../images/help_img/players.png" },
 
-                { type: "h2", value: "5. Flood Cards" },
+                { type: "h2", value: "6. Flood Cards" },
                 { type: "text", value: "After drawing 2 Treasure cards, you must now take on the role of Forbidden " +
                     "Island! Draw a number of cards from the top of the Flood draw pile equal to " +
                     "the current Water Meter level. (For example, if the level is at 3, draw 3 cards.) " +
@@ -303,7 +312,7 @@
                 item.images.forEach(src => {
                     const img = document.createElement('img');
                     img.src = src;
-                    img.alt = "插图";
+                    img.alt = "photo";
                     row.appendChild(img);
                 });
                 container.appendChild(row);
@@ -333,11 +342,160 @@
 
         document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
         document.getElementById('content').style.display = 'block';
+        document.getElementById('returnToGame').style.display = 'none';
     }
 
     function goBack() {
         document.querySelectorAll('.card').forEach(card => card.style.display = 'block');
         document.getElementById('content').style.display = 'none';
+        document.getElementById('returnToGame').style.display = 'block';
+    }
+
+    // 操作指南的每一页内容：图片 + 说明文字
+    const guideSlides = [
+        {
+            img: "../images/help_img/page_1.jpg",
+            text: "You have a total of three action points per turn, which means you can perform a maximum of three actions. " +
+                "<br>You can execute the following actions by clicking the buttons below: " +
+                "<ul><li>Move</li><li>Reinforce</li><li>Exchange Treasures</li><li>Give Cards</li>" +
+                "<li>Use skills (please refer to the card description for specific character skills)</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: Skills involve the other four operations, " +
+                "so they do not consume additional action points. " +
+                "You can mix and match the four operations randomly to take action."
+        },
+        {
+            img: "../images/help_img/page_2.jpg",
+            text: "<b style='font-size: 20px'>Move</b>" +
+                "<br>You may, for 1 or more actions, move your pawn to an adjacent Island " +
+                "tile: either up, down, left, or right, but never diagonally. You may " +
+                "move onto a flooded tile, but may not move onto (or over) the space of " +
+                "a missing tile. " +
+                "<br><b style='font-size: 16px'>NOTE</b>: <ul><li>The Explorer can move diagonally</li>" +
+                "<li>The Diver can swim through one or more adjacent missing and/or flooded tiles</li>" +
+                "<li>The Navigator can move other players up to 2 adjacent tiles per action</li></ul>" +
+                "<li>The Pilot can fly to any tile per action</li></ul>"
+
+        },
+        {
+            img: "../images/help_img/page_3.jpg",
+            text: "<b style='font-size: 20px'>Reinforce</b>" +
+                "<br>You may, for 1 or more actions, shore up any adjacent Island tile " +
+                "(up, down, left, right), or the Island tile your pawn is on. To shore " +
+                "up a tile, simply flip it over so its un-flooded side is facing up" +
+                "<br><b style='font-size: 16px'>NOTE</b>: <ul><li>The Engineer can shore up 2 tiles for 1 action.</li>" +
+                "<li>The Explorer can also shore up tiles diagonally.</li></ul>"
+        },
+        {
+            img: "../images/help_img/page_4.jpg",
+            text: "<b style='font-size: 20px'>Exchange Treasures</b>" +
+                "<br>You may, for 1 action, capture a treasure by discarding 4 matching Treasure cards from your" +
+                "hand if your pawn is on either corresponding island tile. Each treasure only has two tiles you can get from. " +
+                "(For example, if the white pieces have four FIRE Treasure cards now, " +
+                "it can exchange treasures at this position.)" +
+                "<br><b style='font-size: 16px'>NOTE</b>: <ul><li>When you capture a treasure, " +
+                "discard cards to the Treasure discard pile and move the figurine in front of you.</li>" +
+                "<li>You can capture a treasure on a flooded tile.</li></ul>",
+        },
+        {
+            img: "../images/help_img/page_5.jpg",
+            text: "<b style='font-size: 20px'>Change Cards</b>" +
+                "<br>You may give 1 or more of your Treasure cards to " +
+                "another player if both of your pawns are on the same " +
+                "island tile. It costs 1 action for each card you give away. " +
+                "(See “Hand Limit” in Card Introduction) You can not give Special Action cards." +
+                "<br><b style='font-size: 16px'>NOTE</b>: " +
+                "<ul><li>The Messenger can give cards without having to be on the same tile.</li></ul>"
+        },
+        {
+            img: "../images/help_img/page_6.jpg",
+            text: "After a player completes three actions, they need to draw two treasure cards. " +
+                "At this time, there are two exceptions: <ul><li>Exceeding the hand limit of 5 treasure cards</li> " +
+                "<li>Drawing the Water Rise! card</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: If all treasure cards are drawn, " +
+                "reshuffle the discard pile to create a new treasure card pile."
+        },
+        {
+            img: "../images/help_img/page_7.jpg",
+            text:"<ol><li><b style='font-size: 20px'>Exceeding Hand Limit</b>" +
+                "<br>If you find that your hand exceeds the limit after drawing cards " +
+                "(for example, due to drawing extra cards or receiving cards from other players), " +
+                "you must immediately choose and discard the excess cards to the treasure discard pile. " +
+                "If you choose to discard a special action card, you may use its action effect before discarding." +
+                "</li><li><b style='font-size: 20px'>Draw Water Rise!</b>" +
+                "<br><ul><li>First, the water level marker will immediately rise by one level, " +
+                "which means you will need to draw a number of cards from the top of the flood draw " +
+                "pile equal to the current water level count (for example: if the water level is at 3, you will draw 3 cards). " +
+                "<li>Secondly, the system will shuffle the flood discard pile and place it face down on top of the " +
+                "flood draw pile. This means that cards that were previously drawn will soon be drawn again.</li>" +
+                "<li>Finally, the water rise cards will be discarded into the treasure discard pile.</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: The Water Rise! cards occupy the position for drawing treasure " +
+                "cards, so if you unfortunately draw two Water Rise! cards, you will not have " +
+                "any new treasure cards this turn.</li></ol>"
+        },
+        {
+            img: "../images/help_img/page_8.jpg",
+            text: "After players draw a treasure card, they must immediately draw a flood card " +
+                "corresponding to the number indicated by the water level marker. For each card drawn, " +
+                "they need to find the corresponding map tile on the map and then determine:<ul><li>" +
+                "If the map tile is in a normal state (colored), it is flipped to a flooded state (blue and white).</li>" +
+                "<li>If the map tile is in a flooded state (blue and white), this location on the map has sunk, " +
+                "and this tile is removed from the game, along with the drawn flood card.</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: If a player is on a sunk tile and cannot escape, " +
+                "all players lose. Once the flood cards are drawn, shuffle the discard pile to create a new deck of flood cards."
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function showGuideSlider() {
+        // 隐藏所有主页面卡片
+        document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+        document.getElementById('returnToGame').style.display = 'none';
+        // 隐藏主内容区（contentData 的展示区）
+        document.getElementById('content').style.display = 'none';
+        // 显示切页组件区域
+        document.getElementById('guideSlider').style.display = 'block';
+        // 初始化当前页内容
+        updateGuideSlide();
+    }
+
+    function exitGuideSlider() {
+        // 关闭滑动页面，回到主界面
+        document.getElementById('guideSlider').style.display = 'none';
+        document.querySelectorAll('.card').forEach(c => c.style.display = 'block');
+        document.getElementById('returnToGame').style.display = 'block';
+    }
+
+    function nextGuideSlide() {
+        if (currentSlide < guideSlides.length - 1) {
+            currentSlide++;
+            updateGuideSlide();
+        }
+    }
+
+    function prevGuideSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateGuideSlide();
+        }
+    }
+
+    function updateGuideSlide() {
+        // 更新当前图像和说明文字
+        document.getElementById('guideImage').src = guideSlides[currentSlide].img;
+        document.getElementById('guideCaption').innerHTML = guideSlides[currentSlide].text;
+        // 更新箭头的可见性
+        document.getElementById('prevArrow').style.visibility = currentSlide === 0 ? 'hidden' : 'visible';
+        document.getElementById('nextArrow').style.visibility = currentSlide === guideSlides.length - 1 ? 'hidden' : 'visible';
+
+        // 更新分页圆点
+        const dotsContainer = document.getElementById('sliderDots');
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < guideSlides.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot' + (i === currentSlide ? ' active' : '');
+            dotsContainer.appendChild(dot);
+        }
     }
 </script>
 </body>

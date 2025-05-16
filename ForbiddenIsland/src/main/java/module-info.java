@@ -1,6 +1,9 @@
 module team.group14.forbiddenisland {
-    requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.controls;
+    requires javafx.web;
+    requires java.desktop;
+    requires jdk.jsobject;
     requires static lombok;
 
     opens team.group14.forbiddenisland.service to javafx.fxml;

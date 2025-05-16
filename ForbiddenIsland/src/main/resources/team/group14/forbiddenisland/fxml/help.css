@@ -116,3 +116,91 @@ img.screenshot {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+/*操作指南切页样式*/
+.slider-container {
+    position: relative;
+    background-color: rgba(255, 248, 220, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    padding: 20px 40px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.slider-image {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.slider-caption {
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #222;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 42px;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #f4b165;
+    transition: all 0.3s ease;
+    opacity: 0.3;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.slider-arrow:hover {
+    opacity: 0.95;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.slider-arrow.left {
+    left: 0;
+}
+
+.slider-arrow.right {
+    right: 0;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.slider-dot.active {
+    background-color: #ba7a22;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

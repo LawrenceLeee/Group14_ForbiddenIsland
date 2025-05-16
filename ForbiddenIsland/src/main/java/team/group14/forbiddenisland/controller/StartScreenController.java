@@ -1,9 +1,13 @@
 package team.group14.forbiddenisland.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import team.group14.forbiddenisland.service.Director;
+
 
 
 public class StartScreenController {
@@ -16,6 +20,9 @@ public class StartScreenController {
 
     @FXML
     private ImageView settings;
+
+    @FXML
+    private ImageView help;
 
     @FXML
     void mouseClickedExit(MouseEvent event) {
@@ -64,5 +71,32 @@ public class StartScreenController {
         startGame.setOpacity(0.5);
     }
 
+    @FXML
+    private void handleHelpHtmlClick() {
+        try {
+            // 加载 help.fxml 中的 WebView
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/team/group14/forbiddenisland/fxml/help.fxml"));
+            Parent root = loader.load();
+
+            Stage helpStage = new Stage();
+            HelpDocController controller = loader.getController();
+
+            // 从任意节点获取当前主窗口 stage
+            Stage mainStage = (Stage) help.getScene().getWindow();
+
+            controller.init(helpStage, mainStage);
+
+            Scene scene = new Scene(root);
+            helpStage.setScene(scene);
+            helpStage.setTitle("Help Document");
+            helpStage.setResizable(true);
+            helpStage.show();
+
+            // 隐藏主窗口
+            mainStage.hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
