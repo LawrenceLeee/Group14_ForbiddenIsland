@@ -1,0 +1,109 @@
+.start-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+}
+
+.start-button .graphic {
+    -fx-fit-width: 250px; /* 设置图像的宽度 */
+    -fx-fit-height: 50px; /* 设置图像的高度 */
+    -fx-preserve-ratio: true; /* 保持图像比例 */
+}
+
+.setting-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+}
+
+.setting-button .graphic {
+    -fx-fit-width: 250px; /* 设置图像的宽度 */
+    -fx-fit-height: 50px; /* 设置图像的高度 */
+    -fx-preserve-ratio: true; /* 保持图像比例 */
+}
+
+.exit-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+}
+
+.exit-button .graphic {
+    -fx-fit-width: 250px; /* 设置图像的宽度 */
+    -fx-fit-height: 50px; /* 设置图像的高度 */
+    -fx-preserve-ratio: true; /* 保持图像比例 */
+}
+
+.round-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-cursor: hand;
+}
+
+.round-button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 0);
+}
+
+
+.study-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+}
+
+.study-button .graphic {
+    -fx-fit-width: 250px; /* 设置图像的宽度 */
+    -fx-fit-height: 50px; /* 设置图像的高度 */
+    -fx-preserve-ratio: true; /* 保持图像比例 */
+}
+
+.back-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+}
+
+.back-button .graphic {
+    -fx-fit-width: 250px; /* 设置图像的宽度 */
+    -fx-fit-height: 50px; /* 设置图像的高度 */
+    -fx-preserve-ratio: true; /* 保持图像比例 */
+}
+
+.save-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+}
+
+.save-button .graphic {
+    -fx-fit-width: 250px; /* 设置图像的宽度 */
+    -fx-fit-height: 50px; /* 设置图像的高度 */
+    -fx-preserve-ratio: true; /* 保持图像比例 */
+}
+
+
+.main-button {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-color: #0077be;
+    -fx-text-fill: white;
+    -fx-min-width: 200px;
+    -fx-min-height: 50px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 0);
+}
+
+.main-button:hover {
+    -fx-background-color: #005f96;
+}
+
+.title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: gold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
