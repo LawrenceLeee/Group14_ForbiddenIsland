@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainPane" prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bdic.forbiddenisland.view.GameController">
+   <top>
+        <Pane prefHeight="981.0" prefWidth="1024.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="1024.0" fitWidth="1024.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/back/gameBack.jpg" />
+               </image>
+            </ImageView>
+            <GridPane layoutX="227.0" layoutY="206.0" prefHeight="570.0" prefWidth="570.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fx:id="sand_0" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_1" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_2" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_3" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_4" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_5" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_6" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_7" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_8" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_9" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_10" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_11" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_12" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_13" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_14" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_15" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_16" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_17" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_18" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_19" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_20" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_21" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_22" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sand_23" fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../images/back/sand.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="earth" fitHeight="95.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" translateX="22.0" GridPane.columnIndex="5">
+                     <image>
+                        <Image url="@../images/treasure/Treasure1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ocean" fitHeight="95.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" translateX="22.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../images/treasure/Treasure4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="wind" fitHeight="95.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../images/treasure/Treasure2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="fire" fitHeight="95.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/treasure/Treasu3.png" />
+                     </image>
+                  </ImageView>
+                  <!-- island_0 to island_23 -->
+                  <ImageView fx:id="island_0" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland0" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_1" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland1" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_2" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland2" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_3" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland3" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_4" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland4" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_5" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland5" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_22" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland22" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_23" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland23" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_21" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland21" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_6" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland6" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_12" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland12" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_7" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland7" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_8" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland8" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_9" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland9" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_10" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland10" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_11" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland11" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_18" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland18" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_19" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland19" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="island_13" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland13" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ImageView fx:id="island_14" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland14" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <ImageView fx:id="island_15" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland15" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <ImageView fx:id="island_16" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland16" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <ImageView fx:id="island_17" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland17" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <ImageView fx:id="island_20" cache="true" fitHeight="90.0" fitWidth="90.0" onMouseClicked="#mouseClickedIsland20" pickOnBounds="true" preserveRatio="true" smooth="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <ImageView fx:id="playerOnePawn" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" translateX="10.0" translateY="-20.0" GridPane.columnIndex="2" />
+                  <ImageView fx:id="playerThreePawn" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" translateX="10.0" translateY="10.0" GridPane.columnIndex="2" />
+                  <ImageView fx:id="playerTwoPawn" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" translateX="60.0" translateY="-20.0" GridPane.columnIndex="2" />
+                  <ImageView fx:id="playerFourPawn" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" translateX="60.0" translateY="10.0" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+            <ImageView fx:id="player0" fitHeight="111.0" fitWidth="85.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mouseClickedPlayer0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="player2" fitHeight="111.0" fitWidth="85.0" layoutX="14.0" layoutY="852.0" onMouseClicked="#mouseClickedPlayer2" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="player3" fitHeight="111.0" fitWidth="85.0" layoutX="921.0" layoutY="852.0" onMouseClicked="#mouseClickedPlayer3" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="player1" fitHeight="111.0" fitWidth="85.0" layoutX="921.0" layoutY="14.0" onMouseClicked="#mouseClickedPlayer1" pickOnBounds="true" preserveRatio="true" />
+            <HBox layoutX="94.0" layoutY="14.0" prefHeight="111.0" prefWidth="342.0">
+               <children>
+                  <ImageView fx:id="card00" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked00" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card01" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked01" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card02" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked02" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card03" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked03" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card04" fitHeight="111.0" fitWidth="97.0" onMouseClicked="#mouseClicked04" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox layoutX="94.0" layoutY="852.0" prefHeight="111.0" prefWidth="342.0">
+               <children>
+                  <ImageView fx:id="card20" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked20" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card21" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked21" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card22" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked22" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card23" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked23" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card24" fitHeight="111.0" fitWidth="97.0" onMouseClicked="#mouseClicked24" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox layoutX="521.0" layoutY="852.0" prefHeight="111.0" prefWidth="342.0">
+               <children>
+                  <ImageView fx:id="card34" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked34" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card33" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked33" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card32" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked32" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card31" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked31" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card30" fitHeight="111.0" fitWidth="97.0" onMouseClicked="#mouseClicked30" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <ImageView fitHeight="430.0" fitWidth="169.0" layoutX="-2.0" layoutY="280.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/back/cardBack.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="16.0" layoutY="300.0" prefHeight="383.0" prefWidth="128.0" spacing="0" style="-fx-background-color: transparent;">
+               <children>
+                  <!-- 第一组紧挨 -->
+                  <ImageView fitHeight="102.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/back/treasureCards.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="102.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/back/treasureBack.png" />
+                     </image>
+                  </ImageView>
+
+                  <!-- 分组间距 -->
+                  <Region prefHeight="24.0" />
+
+                  <!-- 第二组紧挨 -->
+                  <ImageView fitHeight="102.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/back/floodBack.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="102.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/back/floodCards.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <HBox layoutX="521.0" layoutY="14.0" prefHeight="111.0" prefWidth="342.0">
+               <children>
+                  <ImageView fx:id="card14" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked14" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card13" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked13" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card12" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked12" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card11" fitHeight="111.0" fitWidth="82.0" onMouseClicked="#mouseClicked11" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="card10" fitHeight="111.0" fitWidth="97.0" onMouseClicked="#mouseClicked10" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+
+
+            <ImageView fitHeight="470.0" fitWidth="200.0" layoutX="842.0" layoutY="256.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/back/cardBack.png" />
+               </image>
+            </ImageView>
+             <VBox layoutX="854.0" layoutY="275.0" prefHeight="432.0" prefWidth="158.0" spacing="19" style="-fx-background-color: transparent;">
+                 <children>
+                     <Button fx:id="move" onMouseClicked="#mouseClickedMove" onMouseEntered="#mouseEnteredMove" onMouseExited="#mouseExitedMove" prefHeight="56" prefWidth="158" style="-fx-background-color: #f5f5f5; -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, #d0d3d4, 2, 0.2, 0, 1);" text="Move" />
+                     <Button fx:id="shoreUp" onMouseClicked="#mouseClickedShoreUp" onMouseEntered="#mouseEnteredShoreUp" onMouseExited="#mouseExitedShoreUp" prefHeight="56" prefWidth="158" style="-fx-background-color: #f5f5f5; -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, #d0d3d4, 2, 0.2, 0, 1);" text="Shore Up" />
+                     <Button fx:id="give" onMouseClicked="#mouseClickedGive" onMouseEntered="#mouseEnteredGive" onMouseExited="#mouseExitedGive" prefHeight="56" prefWidth="158" style="-fx-background-color: #f5f5f5; -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, #d0d3d4, 2, 0.2, 0, 1);" text="Give" />
+                     <Button fx:id="capture" onMouseClicked="#mouseClickedCapture" onMouseEntered="#mouseEnteredCapture" onMouseExited="#mouseExitedCapture" prefHeight="56" prefWidth="158" style="-fx-background-color: #f5f5f5; -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, #d0d3d4, 2, 0.2, 0, 1);" text="Capture" />
+                     <Button fx:id="nextTurn" onMouseClicked="#mouseClickedNextTurn" onMouseEntered="#mouseEnteredNextTurn" onMouseExited="#mouseExitedNextTurn" prefHeight="56" prefWidth="158" style="-fx-background-color: #f5f5f5; -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, #d0d3d4, 2, 0.2, 0, 1);" text="Next Turn" />
+                     <Button fx:id="useSkill" onMouseClicked="#mouseClickedUseSkill" onMouseEntered="#mouseEnteredUseSkill" onMouseExited="#mouseExitedUseSkill" prefHeight="56" prefWidth="158" style="-fx-background-color: #f5f5f5; -fx-text-fill: #2c3e50; -fx-font-size: 14px; -fx-font-family: 'Comic Sans MS'; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, #d0d3d4, 2, 0.2, 0, 1);" text="Use Skill" />
+                 </children>
+             </VBox>
+
+         </children></Pane>
+   </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox spacing="15" style="         -fx-padding: 10;         -fx-background-color: #FFFFFF;         -fx-alignment: center;">
+               <children>
+
+                  <!-- 辅助退出按钮：透明底、深灰字 -->
+                  <Button fx:id="exitButton" onAction="#onExit" onMouseEntered="#mouseEnteredExit" onMouseExited="#mouseExitedExit" style="                     -fx-background-color: transparent;                     -fx-text-fill: #333333;                     -fx-border-color: #CCCCCC;                     -fx-border-radius: 4;                     -fx-font-size: 14px;                     -fx-padding: 6 12;" text="Exit" />
+                  <!-- 主操作按钮：填充蓝色，白字 -->
+                  <Button fx:id="startGameButton" onAction="#onStartGame" onMouseEntered="#mouseEnteredStart" onMouseExited="#mouseExitedStart" style="                     -fx-background-color: #007ACC;                     -fx-text-fill: white;                     -fx-background-radius: 4;                     -fx-font-size: 14px;                     -fx-padding: 6 12;" text="Start Game" />
+
+                  <!-- 占位推送右侧 -->
+                  <Region HBox.hgrow="ALWAYS" />
+
+                  <!-- Session Label：加粗深灰 -->
+                  <Label fx:id="sessionLabel" style="-fx-text-fill: #666666; -fx-font-weight: bold; -fx-font-size: 13px;" text="Session: N/A" />
+
+                  <!-- Player Label：常规灰 -->
+                  <Label fx:id="playerLabel" style="-fx-text-fill: #666666; -fx-font-size: 13px; -fx-font-weight: bold;" text="Player:  N/A" />
+               </children>
+            </HBox>
+
+
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>

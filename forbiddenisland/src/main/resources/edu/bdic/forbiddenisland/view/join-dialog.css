@@ -1,0 +1,38 @@
+/* 半透明圆角背景 */
+.beautiful-dialog {
+    -fx-background-color: rgba(44,62,80,0.85);
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-width: 2;
+}
+
+/* 标题花体 */
+.dialog-title {
+    -fx-font-family: 'Great Vibes', cursive;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+}
+
+/* 输入框样式 */
+.dialog-input {
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-background-radius: 8;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+    -fx-font-size: 18px;
+    -fx-text-fill: #2c3e50;
+}
+
+/* 按钮样式 */
+.dialog-button {
+    -fx-font-family: 'Great Vibes', cursive;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(241,196,15,0.85);
+    -fx-background-radius: 10;
+    -fx-min-width: 100px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0.2, 0, 2);
+}
+.dialog-button:hover {
+    -fx-background-color: rgba(241,196,15,1.0);
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1024.0" prefWidth="1024.0" style="-fx-background-color: linear-gradient(to bottom right, #f0f4f8, #dce3ea);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bdic.forbiddenisland.view.StartMenuController">
+
+   <ImageView fitHeight="1024.0" fitWidth="1024.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/back/menuBack.png" />
+      </image>
+   </ImageView>
+
+   <VBox alignment="CENTER" layoutX="312.0" layoutY="512.0" prefHeight="360" prefWidth="400" spacing="30" AnchorPane.leftAnchor="312.0" AnchorPane.topAnchor="512.0">
+
+      <!-- Create Game -->
+      <Button fx:id="createGameButton" onAction="#handleCreateGame" onMouseEntered="#mouseEnteredCreate" onMouseExited="#mouseExitedCreate" prefHeight="80" prefWidth="400" style="                   -fx-font-size: 28px;                   -fx-font-family: 'Great Vibes', cursive;                   -fx-background-color: rgba(44,62,80,0.8);                   -fx-text-fill: white;                   -fx-background-radius: 20;                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.3, 0, 3);                 " text="Create Game" />
+
+      <!-- Join Room -->
+      <Button fx:id="joinRoomButton" onAction="#handleJoinRoom" onMouseEntered="#mouseEnteredJoin" onMouseExited="#mouseExitedJoin" prefHeight="80" prefWidth="400" style="                   -fx-font-size: 28px;                   -fx-font-family: 'Great Vibes', cursive;                   -fx-background-color: rgba(44,62,80,0.8);                   -fx-text-fill: white;                   -fx-background-radius: 20;                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.3, 0, 3);                 " text="Join Room" />
+
+      <!-- Help -->
+      <Button fx:id="helpButton" onAction="#handleHelp" onMouseEntered="#mouseEnteredHelp" onMouseExited="#mouseExitedHelp" prefHeight="80" prefWidth="400" style="                   -fx-font-size: 28px;                   -fx-font-family: 'Great Vibes', cursive;                   -fx-background-color: rgba(44,62,80,0.8);                   -fx-text-fill: white;                   -fx-background-radius: 20;                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.3, 0, 3);                 " text="Help" />
+
+      <!-- Exit -->
+      <Button fx:id="exitButton" onAction="#handleExit" onMouseEntered="#mouseEnteredExit" onMouseExited="#mouseExitedExit" prefHeight="80" prefWidth="400" style="                   -fx-font-size: 28px;                   -fx-font-family: 'Great Vibes', cursive;                   -fx-background-color: rgba(44,62,80,0.8);                   -fx-text-fill: white;                   -fx-background-radius: 20;                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.3, 0, 3);                 " text="Exit" />
+
+   </VBox>
+</AnchorPane>

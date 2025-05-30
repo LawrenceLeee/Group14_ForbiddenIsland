@@ -1,0 +1,134 @@
+@startuml
+
+participant Client as "ClientApp"
+participant NetworkManager
+participant ServerHandler
+participant GameServer
+participant CommandManager
+participant GameModel
+participant ClientHandler
+participant RoomManager as "GameRoomManager"
+participant MessageHandlerFactory
+participant MessageHandler
+participant Deck
+participant Player
+participant Tile
+participant TreasureCard
+participant TreasureDeck
+participant Profession
+participant Card
+participant SessionManager
+participant RoomEventManager
+participant RoomEventListener
+participant JsonUtil
+participant Message
+participant MessageType
+participant Animations
+participant ImageFactory
+participant Notifier
+participant GameController
+participant GameView
+participant StartMenuController
+participant StartMenuView
+
+Client -> NetworkManager: Connect to Server
+NetworkManager -> ServerHandler: Establish connection
+ServerHandler -> GameServer: Accept connection
+GameServer -> RoomManager: Initialize Room Management
+
+== Create/Join Room ==
+Client -> StartMenuController: User selects Create/Join Room
+StartMenuController -> CommandManager: Execute CreateRoomCommand/JoinCommand
+CommandManager -> SessionManager: Manage Session
+SessionManager -> NetworkManager: Send Create/Join Room Message
+NetworkManager -> ServerHandler: Receive Message
+ServerHandler -> MessageHandlerFactory: Request appropriate Handler
+MessageHandlerFactory -> MessageHandler: Instantiate CreateRoomHandler/JoinHandler
+MessageHandler -> RoomManager: Create Room / Add Player to Room
+RoomManager -> RoomEventManager: Notify Room Events
+RoomEventManager -> RoomEventListener: Trigger Room Events
+RoomManager -> GameServer: Notify Room creation/join status
+GameServer -> NetworkManager: Broadcast RoomCreated/Joined message
+NetworkManager -> ClientHandler: Notify Client of Room status
+ClientHandler -> Client: Update UI to show room status
+
+== Game Initialization ==
+Client -> CommandManager: Execute StartGameCommand
+CommandManager -> GameModel: Initialize Game State (Players, Deck, Tiles)
+GameModel -> Deck: Shuffle and distribute cards
+Deck -> TreasureDeck: Initialize and shuffle TreasureDeck
+GameModel -> Player: Assign Profession and Initial Position
+Player -> Profession: Set Profession
+GameModel -> Tile: Initialize and shuffle tiles
+Tile -> ImageFactory: Load Tile Images
+GameModel -> NetworkManager: Broadcast Initial Game State
+NetworkManager -> ServerHandler: Relay Game Initialization Message
+ServerHandler -> GameServer: Broadcast Game Initialization
+GameServer -> ClientHandler: Send Initial Game State to Clients
+ClientHandler -> Client: Load GameView with Initial State
+
+== Player Actions (Move) ==
+Client -> CommandManager: Execute MoveCommand
+CommandManager -> GameModel: Validate and update Player position
+GameModel -> Player: Update Player's current Tile
+GameModel -> NetworkManager: Broadcast Player Move
+NetworkManager -> ServerHandler: Relay Move Message
+ServerHandler -> GameServer: Broadcast Move update
+GameServer -> ClientHandler: Notify all Clients
+ClientHandler -> GameController: Update UI
+GameController -> Animations: Play Move Animation
+
+== Player Actions (Shore Up) ==
+Client -> CommandManager: Execute ShoreUpCommand
+CommandManager -> GameModel: Validate Shore Up action
+GameModel -> Tile: Change Tile Status to "Shored Up"
+Tile -> Animations: Play ShoreUp Animation
+GameModel -> NetworkManager: Broadcast ShoreUp Action
+NetworkManager -> ServerHandler: Relay Shore Up Message
+ServerHandler -> GameServer: Broadcast Shore Up update
+GameServer -> ClientHandler: Notify all Clients
+ClientHandler -> GameController: Update Tile UI
+
+== Player Actions (Capture Treasure) ==
+Client -> CommandManager: Execute CaptureCommand
+CommandManager -> GameModel: Validate Treasure Capture
+GameModel -> Player: Add Treasure to Player Inventory
+Player -> TreasureCard: Receive Treasure Card
+GameModel -> Deck: Update Deck if necessary
+GameModel -> NetworkManager: Broadcast Capture Action
+NetworkManager -> ServerHandler: Relay Capture Message
+ServerHandler -> GameServer: Broadcast Treasure Capture
+GameServer -> ClientHandler: Notify all Clients
+ClientHandler -> GameController: Update UI with captured Treasure
+
+== Player Actions (Discard/Give Card) ==
+Client -> CommandManager: Execute DiscardCommand/GiveCommand
+CommandManager -> GameModel: Validate Card Discard/Give
+GameModel -> Player: Update Player Card Inventory
+Player -> Card: Remove/Add Card
+GameModel -> NetworkManager: Broadcast Card Change
+NetworkManager -> ServerHandler: Relay Card Message
+ServerHandler -> GameServer: Broadcast Card Update
+GameServer -> ClientHandler: Notify Clients
+ClientHandler -> GameController: Refresh Card Inventory UI
+
+== Next Turn ==
+Client -> CommandManager: Execute NextTurnCommand
+CommandManager -> GameModel: Advance Turn and update game status
+GameModel -> NetworkManager: Broadcast New Turn Status
+NetworkManager -> ServerHandler: Relay New Turn Message
+ServerHandler -> GameServer: Notify Players of Next Turn
+GameServer -> ClientHandler: Distribute Notification
+ClientHandler -> GameController: Update UI to next player's turn
+
+== Game End (Win/Lose Condition) ==
+GameModel -> CommandManager: Execute GameWonCommand/GameLostCommand
+CommandManager -> NetworkManager: Notify Game End Condition
+NetworkManager -> ServerHandler: Relay Game End Message
+ServerHandler -> GameServer: Inform all Players about game end
+GameServer -> ClientHandler: Broadcast Game End Condition
+ClientHandler -> Notifier: Notify Clients
+Notifier -> Client: Display Game Result (Win/Lose)
+Client -> StartMenuView: Exit to Menu
+
+@enduml

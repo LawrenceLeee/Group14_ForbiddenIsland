@@ -1,0 +1,60 @@
+.root {
+    -fx-background-color: #eef2f3;
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-padding: 8 12;
+}
+
+.grid-button {
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
+    -fx-background-color: #9ec9ff;
+}
+
+.grid-button.flooded {
+    -fx-background-color: #ffcccb;
+}
+
+.grid-button.sunk {
+    -fx-background-color: #808080;
+}
+
+.grid-button.player {
+    -fx-border-color: #ffd700;
+    -fx-border-width: 3;
+}
+
+/* 整体顶栏背景：深蓝渐变 */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #2980b9, #3498db);
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+/* 按钮统一样式：圆角、阴影、卡通感 */
+.action-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}
+
+/* 鼠标悬停时按钮高亮 */
+.action-button:hover {
+    -fx-background-color: #27ae60;
+}
+
+/* Label 样式：粗体、卡通字体、浅黄色 */
+.header-label {
+    -fx-text-fill: #f1c40f;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
