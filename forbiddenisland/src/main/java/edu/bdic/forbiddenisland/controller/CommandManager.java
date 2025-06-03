@@ -43,13 +43,26 @@ public class CommandManager {
             // START：仅发送，不本地执行
             System.out.printf("[CMD][仅发送] %s → %s%n", msg.getType(), msg.getPayload());
             network.send(msg);
-        } else {
+        }
+        else if (msg.getType() == MessageType.NEXT_TURN) {
+            // 先发送给服务器，再本地 endTurn
+            System.out.printf("[CMD][仅发送] %s → %s%n", msg.getType(), msg.getPayload());
+            network.send(msg);
+            // 把本地 endTurn 放到 JavaFX 线程里执行，保证 UI 先刷新
+            Platform.runLater(() -> {
+                System.out.printf("[CMD][本地执行] %s%n", cmd.getClass().getSimpleName());
+                cmd.execute();
+            });
+        }
+        else {
+            // 其他命令：保持原来的顺序
             System.out.printf("[CMD][执行并发送] %s%n", cmd.getClass().getSimpleName());
             executeLocal(cmd);
             System.out.printf("[CMD][发送] %s → %s%n", msg.getType(), msg.getPayload());
             network.send(msg);
         }
     }
+
 
     /**
      * 由 Netty 收到服务器广播后调用，将广播消息转为本地命令执行

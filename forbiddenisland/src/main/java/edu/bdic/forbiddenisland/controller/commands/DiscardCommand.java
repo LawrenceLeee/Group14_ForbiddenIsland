@@ -22,8 +22,10 @@ public class DiscardCommand implements GameCommand {
 
     @Override
     public void execute() {
+        System.out.printf("[LOG][DiscardCommand] execute(): player=%d 准备弃 %s%n", playerIndex, card);
         GameModel.getInstance().discardTreasure(playerIndex, card);
     }
+
 
     @Override
     public Message toMessage() {

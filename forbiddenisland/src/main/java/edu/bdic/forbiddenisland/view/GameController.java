@@ -1,10 +1,12 @@
 package edu.bdic.forbiddenisland.view;
 
+import edu.bdic.forbiddenisland.MainApp;
 import edu.bdic.forbiddenisland.controller.CommandManager;
 import edu.bdic.forbiddenisland.controller.SessionManager;
 import edu.bdic.forbiddenisland.controller.commands.*;
 import edu.bdic.forbiddenisland.model.*;
 import edu.bdic.forbiddenisland.util.Animations;
+import edu.bdic.forbiddenisland.util.GameDialogUtil;
 import edu.bdic.forbiddenisland.util.ImageFactory;
 import edu.bdic.forbiddenisland.util.Notifier;
 import javafx.animation.Animation;
@@ -34,6 +36,7 @@ public class GameController implements ModelChangeListener {
     @FXML private Button startGameButton, exitButton;
     @FXML private Button move, shoreUp, nextTurn, capture, give, useSkill;
     @FXML private BorderPane mainPane;
+    @FXML private Label AP, waterLevel;
     private Stage stage;
 
     @FXML private ImageView
@@ -97,6 +100,26 @@ public class GameController implements ModelChangeListener {
 
     @FXML
     public void initialize() {
+        // 记录初始水位
+        prevWaterLevel = GameModel.getInstance().getWaterLevel();
+
+        // 监听游戏状态（胜利/失败），弹出对应对话框
+        GameModel.getInstance().addListener(() -> {
+            Platform.runLater(() -> {
+                Stage stage = (Stage) mainPane.getScene().getWindow();
+                Runnable goToMenu = () -> {
+                    GameModel.getInstance().initializeGame(Long.MIN_VALUE);
+                    // new StartMenuView().init(stage);
+                };
+                if (GameModel.getInstance().getGameState() == GameModel.GameState.LOST) {
+                    GameDialogUtil.showGameOverDialog(stage, goToMenu);
+                } else if (GameModel.getInstance().getGameState() == GameModel.GameState.WON) {
+                    GameDialogUtil.showGameWonDialog(stage, goToMenu);
+                }
+            });
+        });
+
+        // 场景元素初始化
         Collections.addAll(islands,
                 island_0, island_1, island_2, island_3,
                 island_4, island_5, island_6, island_7,
@@ -122,13 +145,19 @@ public class GameController implements ModelChangeListener {
         cardViewsByPlayer.add(Arrays.asList(card30, card31, card32, card33, card34));
 
         sessionLabel.setText("Session: " + SessionManager.getInstance().getSessionId());
-        playerLabel .setText("Player:  " + SessionManager.getInstance().getPlayerId());
+        playerLabel.setText("Player:  " + SessionManager.getInstance().getPlayerId());
         startGameButton.setVisible(SessionManager.getInstance().isHost());
 
+        // 注册自身为模型变化监听器，方便更新手牌、AP、waterLevel 等
         GameModel.getInstance().addListener(this);
+
+        // 延迟获取 Stage 引用
         Platform.runLater(() -> stage = (Stage) mainPane.getScene().getWindow());
+
+        // 首次刷新一次界面（防止在注册监听之前模型已发生变化）
         onModelChanged();
     }
+
 
     // —— 操作按钮 点击 ——
 
@@ -366,7 +395,7 @@ public class GameController implements ModelChangeListener {
             return;
         }
 
-        // —— Engineer 双抽水 —— （保持原样） ——
+        // —— Engineer 双抽水 ——
         Player self = GameModel.getInstance().getPlayer(me);
         if (currentAction == ActionState.SHOREUP
                 && self.getProfession() == Profession.ENGINEER) {
@@ -376,16 +405,17 @@ public class GameController implements ModelChangeListener {
             if (engineerShoreTargets.size() == 1) {
                 Notifier.notify(stage, "Engineer: Please select another island to pump. If there is only one island to reinforce, click on it twice", "#2196F3");
             } else {
-                for (int sel : engineerShoreTargets) {
-                    int t = GameModel.getInstance().getIslandLayout().get(sel);
-                    CommandManager.getInstance().executeAndSend(new ShoreUpCommand(t));
-                }
+                List<Integer> tiles = engineerShoreTargets.stream()
+                        .map(idx -> GameModel.getInstance().getIslandLayout().get(idx))
+                        .collect(Collectors.toList());
+                CommandManager.getInstance().executeAndSend(new EngineerShoreUpCommand(me, tiles));
                 engineerShoreTargets.clear();
                 clearHighlights();
                 currentAction = ActionState.NONE;
             }
             return;
         }
+
 
         // —— 普通 Move —— （去掉这里的 useActionPoint 调用） ——
         if (currentAction == ActionState.MOVE) {
@@ -782,9 +812,14 @@ public class GameController implements ModelChangeListener {
     @FXML private void onStartGame() { CommandManager.getInstance().sendOnly(new StartGameCommand(-1)); }
     @FXML private void onExit()      { Platform.exit(); }
 
+    private int prevWaterLevel = -1;
+
     @Override
     public void onModelChanged() {
         Platform.runLater(() -> {
+            AP.setText("AP: " + GameModel.getInstance().getActionPoints(SessionManager.getInstance().getPlayerId()));
+            waterLevel.setText("WaterLevel: " + GameModel.getInstance().getWaterLevel());
+
             GameModel model = GameModel.getInstance();
             int cur = model.getCurrentPlayer();
             int me  = SessionManager.getInstance().getPlayerId();
@@ -884,8 +919,17 @@ public class GameController implements ModelChangeListener {
             move.setDisable(!hasAP);
             shoreUp.setDisable(!hasAP);
             useSkill.setDisable(!hasAP || pilotSkillUsed);
+
+            AP.setText("AP: " + GameModel.getInstance().getActionPoints(SessionManager.getInstance().getPlayerId()));
+            waterLevel.setText("WaterLevel: " + GameModel.getInstance().getWaterLevel());
+
+            // —— 检测水位是否上涨，如果上涨就弹 Notifier ——
+            int newWL = model.getWaterLevel();
+            if (newWL > prevWaterLevel) {
+                Notifier.notify(stage, "Water Rise! Flood deck shuffle!", "#3498db");
+            }
+            // 更新 prevWaterLevel
+            prevWaterLevel = newWL;
         });
     }
-
-
 }

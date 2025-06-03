@@ -11,22 +11,42 @@ import edu.bdic.forbiddenisland.network.NetworkManager;
 import edu.bdic.forbiddenisland.controller.CommandManager;
 
 public class MainApp extends Application {
+    private static MainApp instance;          // 单例引用
+    private Stage primaryStage;               // 保存主窗口
+
     private static final String SERVER_HOST = "localhost";
     private static final int SERVER_PORT = 8888;
 
     @Override
     public void start(Stage primaryStage) {
-        // 在你的 Application start() 方法里
+        instance = this;
+        this.primaryStage = primaryStage;
+
+        // 字体加载
         Font.loadFont(getClass().getResourceAsStream("/fonts/GreatVibes-Regular.ttf"), 28);
+
         // 1. 建立到服务器的连接，并设置收到消息时的回调
         NetworkManager.getInstance().connect(
                 SERVER_HOST,
                 SERVER_PORT,
                 this::onServerMessage
         );
-        // 2. 启动 JavaFX 界面
-        StartMenuView view = new StartMenuView();
-        view.init(primaryStage);
+
+        // 2. 启动 JavaFX 界面（初始菜单）
+        showStartMenu();
+    }
+
+    /** 静态方法，全局跳转主菜单 */
+    public static void showStartMenu() {
+        if (instance != null && instance.primaryStage != null) {
+            StartMenuView view = new StartMenuView();
+            view.init(instance.primaryStage);
+        }
+    }
+
+    /** （可选）有需要可以加 getPrimaryStage 方法 */
+    public static Stage getPrimaryStage() {
+        return instance != null ? instance.primaryStage : null;
     }
 
     /**
@@ -52,6 +72,7 @@ public class MainApp extends Application {
         // 不论命令还是事件，都需要分发给对应的 Handler
         MessageHandlerFactory.getHandler(type).handle(msg);
     }
+
     public static void main(String[] args) {
         launch(args);
     }

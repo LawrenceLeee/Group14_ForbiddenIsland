@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainPane" prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bdic.forbiddenisland.view.GameController">
    <top>
@@ -317,6 +318,16 @@
                   <Button fx:id="exitButton" onAction="#onExit" onMouseEntered="#mouseEnteredExit" onMouseExited="#mouseExitedExit" style="                     -fx-background-color: transparent;                     -fx-text-fill: #333333;                     -fx-border-color: #CCCCCC;                     -fx-border-radius: 4;                     -fx-font-size: 14px;                     -fx-padding: 6 12;" text="Exit" />
                   <!-- 主操作按钮：填充蓝色，白字 -->
                   <Button fx:id="startGameButton" onAction="#onStartGame" onMouseEntered="#mouseEnteredStart" onMouseExited="#mouseExitedStart" style="                     -fx-background-color: #007ACC;                     -fx-text-fill: white;                     -fx-background-radius: 4;                     -fx-font-size: 14px;                     -fx-padding: 6 12;" text="Start Game" />
+                  <Label fx:id="waterLevel" prefHeight="46.0" prefWidth="165.0" text="WaterLevel: 2">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="AP" text="AP: 3">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
 
                   <!-- 占位推送右侧 -->
                   <Region HBox.hgrow="ALWAYS" />

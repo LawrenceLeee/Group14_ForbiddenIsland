@@ -14,5 +14,6 @@ public enum MessageType {
     CAPTURE,
     UPDATE_TILE_STATUS, DISCARD,
     GAME_WON,
-    GAME_LOST
+    GAME_LOST,
+    ENGINEER_SHOREUP
 }

@@ -8,15 +8,18 @@ import edu.bdic.forbiddenisland.controller.commands.CreateRoomCommand;
 import edu.bdic.forbiddenisland.controller.commands.JoinCommand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +47,16 @@ public class StartMenuController implements RoomEventListener {
     }
 
     @FXML private void handleHelp() {
-        showBeautifulAlert("请参阅游戏帮助文档或教程。");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/bdic/forbiddenisland/view/help.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Help Document");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML private void handleExit() {

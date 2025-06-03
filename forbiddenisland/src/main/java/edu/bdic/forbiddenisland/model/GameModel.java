@@ -292,9 +292,13 @@ public class GameModel {
     // —— 移动与抽水 ——
 
     public void movePlayer(int playerIndex, int toTileIndex) {
-        if (!useActionPoint(playerIndex)) return;
+        if (!useActionPoint(playerIndex)) {
+            System.out.printf("[DEBUG][GameModel] movePlayer: player %d no AP%n", playerIndex);
+            return;
+        }
         Player p = players.get(playerIndex);
         if (p != null) {
+            System.out.printf("[DEBUG][GameModel] player %d moves to tile %d%n", playerIndex, toTileIndex);
             p.moveTo(toTileIndex);
             fireChange();
         }
@@ -306,22 +310,40 @@ public class GameModel {
         fireChange();
     }
 
+    // 增加一个重载方法
+    public void shoreUpTiles(int playerIdx, List<Integer> tileIndices) {
+        if (!useActionPoint(playerIdx)) {
+            System.out.printf("[DEBUG][Engineer] player=%d not enough AP for shore up%n", playerIdx);
+            return;
+        }
+        for (int tileIndex : tileIndices) {
+            board[tileIndex / 6][tileIndex % 6].shoreUp();
+            System.out.printf("[DEBUG][Engineer] player=%d shore up tile %d%n", playerIdx, tileIndex);
+        }
+        fireChange();
+    }
+
+
     // —— 手牌、弃牌、增水 ——
 
     public List<TreasureCardType> getTreasureHand(int pid) {
         return playerTreasureHands.getOrDefault(pid, Collections.emptyList());
     }
+
     public void discardTreasure(int pid, TreasureCardType card) {
         List<TreasureCardType> h = playerTreasureHands.get(pid);
         if (h != null && h.remove(card)) {
+            System.out.printf("[LOG][GameModel.discardTreasure] 玩家 %d 弃掉 %s，剩余手牌=%s%n", pid, card, h);
             treasureDiscard.add(card);
             fireChange();
         }
     }
+
     public void increaseWaterLevel() {
         waterLevel++;
         fireChange();
     }
+
     public int getWaterLevel() { return waterLevel; }
 
     public boolean captureTreasure(int pid) {
@@ -350,9 +372,13 @@ public class GameModel {
     }
 
     public void giveCard(int fromPlayer, int toPlayer, TreasureCardType card) {
-        if (!useActionPoint(fromPlayer)) return;
+        if (!useActionPoint(fromPlayer)) {
+            System.out.printf("[DEBUG][GameModel] giveCard: player %d no AP%n", fromPlayer);
+            return;
+        }
         List<TreasureCardType> fh = playerTreasureHands.get(fromPlayer);
         if (fh != null && fh.remove(card)) {
+            System.out.printf("[DEBUG][GameModel] player=%d gives %s to player=%d%n", fromPlayer, card, toPlayer);
             playerTreasureHands.computeIfAbsent(toPlayer, k -> new ArrayList<>()).add(card);
             fireChange();
         }

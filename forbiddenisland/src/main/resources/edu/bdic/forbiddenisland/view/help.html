@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="help.css">
+    <title>HelpDoc</title>
+</head>
+
+<body>
+<h1>Forbidden Island Game Help Document</h1>
+<div class="card" onclick="showContent('intro')">
+    <div class="title">1. Game Introduction</div>
+</div>
+<div class="card" onclick="showGuideSlider()">
+    <div class="title">2. Operating Instruction</div>
+</div>
+<div class="card" onclick="showContent('cards')">
+    <div class="title">3. Card Introduction</div>
+</div>
+<div class="card" onclick="showContent('victory')">
+    <div class="title">4. Winning Condition</div>
+</div>
+<div class="card" onclick="showContent('failure')">
+    <div class="title">5. Failure Condition</div>
+</div>
+
+<!-- 详细内容显示 -->
+<div id="content" class="content">
+    <div class="title" id="contentTitle"></div>
+    <div id="contentBody"></div>
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+</div>
+
+<!--新增操作指南滑动组件-->
+<div id="guideSlider" class="slider-container" style="display: none;">
+    <div class="slider-arrow left" id="prevArrow" onclick="prevGuideSlide()">&#10094;</div>
+
+    <div class="slider-content">
+        <img id="guideImage" class="slider-image">
+        <div id="guideCaption" class="slider-caption"></div>
+    </div>
+
+    <div class="slider-arrow right" id="nextArrow" onclick="nextGuideSlide()">&#10095;</div>
+    <div style="text-align:center; margin-top: 15px;">
+        <button class="back-button" onclick="exitGuideSlider()">Back</button>
+    </div>
+
+    <div class="slider-dots" id="sliderDots"></div>
+</div>
+
+<script>
+    const contentData = {
+        "intro": {
+            "title": "Game Introduction",
+            content: [
+                {type: "h2", value: "The Game Background"},
+                {type: "text", value: "Forbidden Island was the secluded retreat " +
+                        "of an ancient mystical empire known as " +
+                        "the Archeans. Legend has it that " +
+                        "the Archeans possessed the ability to control the " +
+                        "Earth’s core elements – fire, wind, water, and " +
+                        "earth – through four sacred treasures: The Crystal " +
+                        "of Fire, The Statue of the Wind, The Ocean’s " +
+                        "Chalice, and The Earth Stone. Because of their " +
+                        "potential to cause catastrophic damage if they " +
+                        "fell into enemy hands, the Archeans kept the " +
+                        "treasures secretly hidden on Forbidden Island and " +
+                        "designed it to sink if intruders ever attempted to " +
+                        "claim them. In the centuries since the mysterious " +
+                        "collapse of their empire, Forbidden Island " +
+                        "remained undiscovered ... until now."},
+                {type: "h2", value: "The Game Objective"},
+                {type: "text", value: "Your team of adventurers must work together to keep Forbidden Island from sinking, in order "+
+                    "to buy enough time to capture its four treasures. Once you’ve captured them, you must make it "+
+                    "to Fools’ Landing and escape by helicopter to win. If however, the island sinks before you can "+
+                    "complete your tasks, the mission ends in defeat!"},
+                { type: "h2", value: "Explanation of Terms" },
+                { type: "list", style: "dot", items: [
+                        { text: "Treasures: Four treasure markers representing earth, water, fire, and wind." }
+                        ]},
+                { type: "image", src: "../images/help_img/treasures.png" },
+                { type: "list", style: "dot", items: [
+                        { text: "Treasure Deck: Cards with a red back." },
+                        { text: "Flood Deck: Cards with a dark blue back." },
+                        { text: "Player Cards: Six cards with character names and abilities written on them."}
+                    ]},
+                { type: "image", src: "../images/help_img/Deck.png" },
+                { type: "list", style: "dot", items: [
+                        { text: "Tiles: 24 square paper pieces used to form the map of Forbidden Island." },
+                        { text: "Normal State: Indicates that the tile is in its colored side up and has not been hit by flood. "
+                            +"Players can walk on it." },
+                        { text: "Flooded State: Indicates that the tile is in its blue and white side up and "
+                            +"has been hit by flood but can still be saved.\nNOTE: In the flooded state, "
+                                + "players can still win by playing the Helicopter Lit card on Fool's Landing." },
+                        { text: "Sunken State: At this point, the tile and the corresponding flood card have been " +
+                                "removed from the game. The area on the tile is now blank. Players cannot stand on it," +
+                                " except for the Diver, who can pass through it." }
+                        ]},
+                { type: "image", src: "../images/help_img/normal_flood.png" },
+                { type: "list", style: "dot", items: [
+                        { text: "Shore up：Players spend 1 action point to flip a flooded tile (blue and white side up) "+
+                                "to the normal state (colored side up)."+"\nNOTE: Unless using the Sandbags special "+
+                                "action card, players can only pump adjacent tiles. " },
+                        { text: "Adjacent: The tile the player is standing on, and the tiles above, below, left, "+
+                                "and right of the player. These five tiles are adjacent to the player and can be pumped or moved to."+
+                                "\nNOTE: Except for the Explorer, who can move to and pump diagonally adjacent tiles." }
+                    ]},
+                { type: "imageRow", images:["../images/help_img/adjacent.png", "../images/help_img/shore_up.png"]},
+
+                { type: "h2", value: "Game Preparation" },
+                { type: "list", style: "number", items: [
+                        { text: "Shuffle the 24 Island tiles and randomly " +
+                                "place them face up (non blue and white side) into a grid as follows: First make a 4 x 4 square " +
+                                "of tiles in the center of the playing area. Then place 2 tiles next to each of the 2 middle tiles on " +
+                                "every side of the square. (Important Note: Leave a small gap between the tiles.) This forms " +
+                                "Forbidden Island and your pawns will move on it like a game board." },
+                        { text: "Place the 4 treasure figurines – The Earth Stone, " +
+                                "The Statue of the Wind, The Crystal of Fire, and The Ocean’s Chalice – around the island." },
+                        { text: "Separate the cards into three decks according to card " +
+                                "back: Flood deck (blue back), Treasure deck (red back), and Adventurer cards (6 cards).",
+                        image: "../images/help_img/island.png"},
+
+                        { text: "Shuffle the Flood deck and place it face " +
+                                "down on one side of the island to form the Flood draw pile. Draw the top 6 cards (1 at a time) " +
+                                "and place them face up next to the draw pile to form the Flood discard pile. For each card " +
+                                "drawn, flip the corresponding Island tile over to its “flooded” (blue and white) side." },
+                        { text: "Shuffle the 6 Adventurer cards and randomly deal 1 to each player." +
+                                "The pawn matching the color of your Adventurer card will be placed on the " +
+                                "corresponding Island tile. (Look for the matching pawn icon in the lower right " +
+                                "corner of the Gates and Fools’ Landing tiles.)\n"+
+                                "Note: It’s OK to start on a flooded tile.",
+                        image: "../images/help_img/players.png"},
+
+                        { text: "Thoroughly shuffle the Treasure deck and deal 2 cards to each player."+
+                                "If anyone gets a Waters Rise! card, give them a replacement card and shuffle " +
+                                "the Waters Rise! card back into the Treasure deck. Place the " +
+                                "Treasure deck face down by one side of the island. \nNOTE: There " +
+                                "will be a Treasure discard pile right next to the Treasure deck." },
+                        { text: "Place the Water Level marker " +
+                                "on the left side of the Water Meter and set it to the appropriate starting " +
+                                "difficulty level, according to the type of game you want to play. \n(For example, " +
+                                "if this is your first time playing a cooperative game, set it to the Novice level.)" }
+                    ]},
+                { type: "imageRow", images: ["../images/help_img/water_level.png", "../images/help_img/cards.png"]},
+
+                { type: "h2", value: "Game Over" },
+                { type: "text", value: "At any point, if the victory condition is met, it means a total victory. "+
+                        "If the failure condition is reached, the game is over and it immediately ends." }
+            ]
+        },
+
+        "cards": {
+            "title": "Card Introduction",
+            content: [
+                { type: "h2", value: "Overview of Card Types" },
+                { type: "list", style: "number", items: [
+                        { text: "Treasure Cards (Treasure Deck)" },
+                        { text: "Special Action Cards (Treasure Deck)" },
+                        { text: "Waters Rise! Cards (Treasure Deck)" },
+                        { text: "Player Cards" },
+                        { text: "Flood Cards" }
+                    ]},
+
+                { type: "h2", value: "1. Treasure Cards" },
+                { type: "text", value: "There are 5 of each Treasure card in the Treasure deck. The " +
+                        "aim is to collect 4 of the same Treasure card in order to find the " +
+                        "corresponding treasure of Forbidden Island. You can give Treasure " +
+                        "cards to other players using the Give a Treasure Card action." },
+                { type: "image", src: "../images/help_img/match.png" },
+
+                { type: "h2", value: "2. Special Action Cards" },
+                { type: "text", value: "There are 2 types of Special Action cards in the Treasure deck – " +
+                        "Helicopter Lifts (3) and Sandbags (2) – that will help your team during " +
+                        "the game. These cards are taken into your hand and can be played at " +
+                        "any time — even on another player’s turn. Playing a Special Action " +
+                        "card does not require an action. Discard these cards to the Treasure " +
+                        "discard pile immediately when played." },
+                { type: "text", value: "Note: You may use the power of a Special Action card if you are " +
+                        "forced to discard it." },
+
+                { type: "text", value: "The Special Action cards are:" },
+                { type: "list", style: "dot", items: [
+                        { text: "Helicopter Lift: Move any number of players from one tile to another. "+
+                                "This is used for all players to evacuate after standing on Fool's Landing to win. A total of 3 cards." },
+                        { text: "Sandbags: Immediately flip any one tile from flooded state to normal state. A total of 2." }
+                    ]},
+                { type: "image", src: "../images/help_img/special_cards.png" },
+
+                { type: "h2", value: "3. Waters Rise! Cards" },
+                { type: "text", value: "There are 3 Waters Rise! cards in the Treasure deck. When you draw a Waters " +
+                        "Rise! card, you must immediately do the following:" },
+                { type: "list", style: "number", items: [
+                        { text: "Move the Water Level marker up to cover the next tick mark on the " +
+                                "Water Meter. Note how many cards will now be drawn at the end of " +
+                                "your turn by looking at the number on the right of the meter." ,
+                        image: "../images/help_img/rise_level.png"},
+                        { text: "Take all of the cards from the Flood discard pile, shuffle them, and " +
+                                "then place them face down on top of the Flood draw pile. This means " +
+                                "that previously drawn cards will be drawn again soon!",
+                        images: "../images/help_img/shuffle_flood.png"},
+                        { text: "Discard the Waters Rise! card to the Treasure discard pile.",
+                        images: "../images/help_img/discard_rise.png"}
+                    ]},
+                { type: "text", value:"NOTE: "},
+                { type: "list", style: "dot", items: [
+                        { text: "If you draw a Waters Rise! card, you do not get a replacement card." },
+                        { text: "If you draw 2 Waters Rise! cards in a row, shuffle the Flood discard pile only once but" +
+                                "move the Water Level marker up 2 tick marks." },
+                        { text: "If you draw a Waters Rise! card but there are no cards in the Flood discard pile, just move"+
+                            " the Water Level marker up 1 tick mark." }
+                    ]},
+
+                { type: "h2", value: "4. Supplementary Explanation of Treasure Deck"},
+                { type: "text", value: "When the treasure deck runs out: "},
+                { type: "text", value: "When the last card of the Treasure deck is drawn, " +
+                        "immediately shuffle the Treasure discard pile and turn it over to form a new Treasure deck."},
+                { type: "text", value: "Hand Limit: "},
+                { type: "text", value: "You may only have 5 cards in your hand, " +
+                        "including Treasure and Special Action cards. If you ever find that you have 6 or more cards " +
+                        "(for example because you drew more cards or received cards from another player) " +
+                        "you must immediately choose and discard the excess to the Treasure discard pile. " +
+                        "If you choose to discard a Special Action card, you may use its action before discarding."},
+
+                { type: "h2", value: "5. Player Cards" },
+                { type: "text", value: "Each character has unique skills that can change the rules for moving, drawing, or passing cards." },
+                { type: "list", style: "dot", items: [
+                        { text: "Explorer: You can move and shore up diagonally." },
+                        { text: "Pilot: You can spend 1 action to fly to any tile, but you can only fly once per turn." },
+                        { text: "Messenger: You can give cards without having to be on the same tile." },
+                        { text: "Engineer: You can shore up 2 tiles for 1 action." },
+                        { text: "Diver: You can move through one or more adjacent missing and/or " +
+                                " flooded tiles for 1 action." },
+                        { text: "Navigator: You can move other players up to 2 adjacent tiles per action." }
+                    ]},
+                { type: "image", src: "../images/help_img/players.png" },
+
+                { type: "h2", value: "6. Flood Cards" },
+                { type: "text", value: "After drawing 2 Treasure cards, you must now take on the role of Forbidden " +
+                    "Island! Draw a number of cards from the top of the Flood draw pile equal to " +
+                    "the current Water Meter level. (For example, if the level is at 3, draw 3 cards.) " +
+                    "Draw cards 1 at a time and place them face up onto the Flood discard pile. For " +
+                    "each card drawn, find the matching Island tile and do one of the following:" },
+                { type: "list", style: "dot", items: [
+                        { text: "If the matching Island tile is un-flooded, flip it over to its flooded side." ,
+                        image: "../images/help_img/normal_flood_2.png"},
+                        { text: "If the matching Island tile is already flooded, it sinks into the abyss! Remove it and " +
+                                "the matching Flood card from the game and place them out of play" ,
+                        image: "../images/help_img/remove_island.png"}
+                    ]},
+                { type: "text", value: "NOTE: You cannot play a Sandbag card to save a flooded tile once you’ve revealed the " +
+                        "matching Flood card." },
+            ]
+        },
+
+        "victory": {
+            "title": "Winning Condition",
+            content: [
+                { type: "h2", value: "Winning Condition Introduction" },
+                { type: "list", style: "number", items: [
+                        { text: "The player obtains all 4 treasures: Fire, Water, Wind, Earth." },
+                        { text: "All players arrive at Fool's Landing tile." },
+                        { text: "One player must discard a Helicopter Lift " +
+                                "card to lift team off of Forbidden Island for the win!" }
+                    ]},
+                { type: "text", value: "NOTE: Even if the Fool’s Landing tile is submerged, "+
+                        "evacuation can still be completed to achieve victory." },
+                { type: "image", src: "../images/help_img/victory.png" }
+            ]
+        },
+
+        "failure": {
+            "title": "Failure Condition",
+            content: [
+                { type: "h2", value: "Failure Condition Introduction" },
+                { type: "text", value: "The game immediately fails if any of the following situations occur:" },
+                { type: "list", style: "number", items: [
+                        { text: "If both Temples, Caves, Palaces, or Gardens tiles sink" +
+                                " before you collect their respective treasures." },
+                        { text: "If the Fools’ Landing tile sinks." },
+                        { text: "If any player is on an Island tile that sinks and there is no adjacent tile to swim to." },
+                        { text: "If the water level reaches the skull and crossbones." }
+                    ]}
+            ]
+        }
+    };
+
+    function showContent(type) {
+        // 显示内容区前，禁止外层滚动
+        document.body.style.overflow = 'hidden';
+        const data = contentData[type];
+        document.getElementById('contentTitle').innerText = data.title;
+        const container = document.getElementById('contentBody');
+        container.innerHTML = '';
+
+        data.content.forEach(item => {
+            if (item.type === 'text') {
+                const p = document.createElement('p');
+                p.textContent = item.value;
+                container.appendChild(p);
+            } else if (item.type === 'image') {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = "photo";
+                img.className = "screenshot";
+                container.appendChild(img);
+            } else if (item.type === 'imageRow') {
+                const row = document.createElement('div');
+                row.className = 'image-row';
+                item.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = "photo";
+                    row.appendChild(img);
+                });
+                container.appendChild(row);
+            } else if (item.type === 'list') {
+                const list = document.createElement(item.style === 'number' ? 'ol' : 'ul');
+                item.items.forEach(i => {
+                    const li = document.createElement('li');
+                    li.textContent = i.text;
+
+                    if (i.image) {
+                        const img = document.createElement('img');
+                        img.src = i.image;
+                        img.alt = "photo";
+                        img.className = "screenshot";
+                        li.appendChild(document.createElement("br"));
+                        li.appendChild(img);
+                    }
+                    list.appendChild(li);
+                });
+                container.appendChild(list);
+            } else if (item.type === 'h2') {
+                const h = document.createElement('h2');
+                h.textContent = item.value;
+                container.appendChild(h);
+            }
+        });
+
+        document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+        document.getElementById('content').style.display = 'block';
+    }
+
+    function goBack() {
+        document.querySelectorAll('.card').forEach(card => card.style.display = 'block');
+        document.getElementById('content').style.display = 'none';
+        window.scrollTo(0, 0);
+    }
+
+    // 操作指南的每一页内容：图片 + 说明文字
+    const guideSlides = [
+        {
+            img: "../images/help_img/page_1.jpg",
+            text: "You have a total of three action points per turn, which means you can perform a maximum of three actions. " +
+                "<br>You can execute the following actions by clicking the buttons below: " +
+                "<ul><li>Move</li><li>Reinforce</li><li>Exchange Treasures</li><li>Give Cards</li>" +
+                "<li>Use skills (please refer to the card description for specific character skills)</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: Skills involve the other four operations, " +
+                "so they do not consume additional action points. " +
+                "You can mix and match the four operations randomly to take action."
+        },
+        {
+            img: "../images/help_img/page_2.jpg",
+            text: "<b style='font-size: 20px'>Move</b>" +
+                "<br>You may, for 1 or more actions, move your pawn to an adjacent Island " +
+                "tile: either up, down, left, or right, but never diagonally. You may " +
+                "move onto a flooded tile, but may not move onto (or over) the space of " +
+                "a missing tile. " +
+                "<br><b style='font-size: 16px'>NOTE</b>: <ul><li>The Explorer can move diagonally</li>" +
+                "<li>The Diver can swim through one or more adjacent missing and/or flooded tiles</li>" +
+                "<li>The Navigator can move other players up to 2 adjacent tiles per action</li>" +
+                "<li>The Pilot can fly to any tile per action</li></ul>"
+
+        },
+        {
+            img: "../images/help_img/page_3.jpg",
+            text: "<b style='font-size: 20px'>Reinforce</b>" +
+                "<br>You may, for 1 or more actions, shore up any adjacent Island tile " +
+                "(up, down, left, right), or the Island tile your pawn is on. To shore " +
+                "up a tile, simply flip it over so its un-flooded side is facing up" +
+                "<br><b style='font-size: 16px'>NOTE</b>: <ul><li>The Engineer can shore up 2 tiles for 1 action.</li>" +
+                "<li>The Explorer can also shore up tiles diagonally.</li></ul>"
+        },
+        {
+            img: "../images/help_img/page_4.jpg",
+            text: "<b style='font-size: 20px'>Exchange Treasures</b>" +
+                "<br>You may, for 1 action, capture a treasure by discarding 4 matching Treasure cards from your" +
+                "hand if your pawn is on either corresponding island tile. Each treasure only has two tiles you can get from. " +
+                "(For example, if the white pieces have four FIRE Treasure cards now, " +
+                "it can exchange treasures at this position.)" +
+                "<br><b style='font-size: 16px'>NOTE</b>: <ul><li>When you capture a treasure, " +
+                "discard cards to the Treasure discard pile and move the figurine in front of you.</li>" +
+                "<li>You can capture a treasure on a flooded tile.</li></ul>",
+        },
+        {
+            img: "../images/help_img/page_5.jpg",
+            text: "<b style='font-size: 20px'>Change Cards</b>" +
+                "<br>You may give 1 or more of your Treasure cards to " +
+                "another player if both of your pawns are on the same " +
+                "island tile. It costs 1 action for each card you give away. " +
+                "(See “Hand Limit” in Card Introduction) You can not give Special Action cards." +
+                "<br><b style='font-size: 16px'>NOTE</b>: " +
+                "<ul><li>The Messenger can give cards without having to be on the same tile.</li></ul>"
+        },
+        {
+            img: "../images/help_img/page_6.jpg",
+            text: "After a player completes three actions, they need to draw two treasure cards. " +
+                "At this time, there are two exceptions: <ul><li>Exceeding the hand limit of 5 treasure cards</li> " +
+                "<li>Drawing the Water Rise! card</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: If all treasure cards are drawn, " +
+                "reshuffle the discard pile to create a new treasure card pile."
+        },
+        {
+            img: "../images/help_img/page_7.jpg",
+            text:"<ol><li><b style='font-size: 20px'>Exceeding Hand Limit</b>" +
+                "<br>If you find that your hand exceeds the limit after drawing cards " +
+                "(for example, due to drawing extra cards or receiving cards from other players), " +
+                "you must immediately choose and discard the excess cards to the treasure discard pile. " +
+                "If you choose to discard a special action card, you may use its action effect before discarding." +
+                "</li><li><b style='font-size: 20px'>Draw Water Rise!</b>" +
+                "<br><ul><li>First, the water level marker will immediately rise by one level, " +
+                "which means you will need to draw a number of cards from the top of the flood draw " +
+                "pile equal to the current water level count (for example: if the water level is at 3, you will draw 3 cards). " +
+                "<li>Secondly, the system will shuffle the flood discard pile and place it face down on top of the " +
+                "flood draw pile. This means that cards that were previously drawn will soon be drawn again.</li>" +
+                "<li>Finally, the water rise cards will be discarded into the treasure discard pile.</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: The Water Rise! cards occupy the position for drawing treasure " +
+                "cards, so if you unfortunately draw two Water Rise! cards, you will not have " +
+                "any new treasure cards this turn.</li></ol>"
+        },
+        {
+            img: "../images/help_img/page_8.jpg",
+            text: "After players draw a treasure card, they must immediately draw a flood card " +
+                "corresponding to the number indicated by the water level marker. For each card drawn, " +
+                "they need to find the corresponding map tile on the map and then determine:<ul><li>" +
+                "If the map tile is in a normal state (colored), it is flipped to a flooded state (blue and white).</li>" +
+                "<li>If the map tile is in a flooded state (blue and white), this location on the map has sunk, " +
+                "and this tile is removed from the game, along with the drawn flood card.</li></ul>" +
+                "<br><b style='font-size: 16px'>NOTE</b>: If a player is on a sunk tile and cannot escape, " +
+                "all players lose. Once the flood cards are drawn, shuffle the discard pile to create a new deck of flood cards."
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function showGuideSlider() {
+        // 隐藏所有主页面卡片
+        document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+        // 隐藏主内容区（contentData 的展示区）
+        document.getElementById('content').style.display = 'none';
+        // 显示切页组件区域
+        document.getElementById('guideSlider').style.display = 'block';
+        // 初始化当前页内容
+        updateGuideSlide();
+    }
+
+    function exitGuideSlider() {
+        // 关闭滑动页面，回到主界面
+        document.getElementById('guideSlider').style.display = 'none';
+        document.querySelectorAll('.card').forEach(c => c.style.display = 'block');
+    }
+
+    function nextGuideSlide() {
+        if (currentSlide < guideSlides.length - 1) {
+            currentSlide++;
+            updateGuideSlide();
+        }
+    }
+
+    function prevGuideSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateGuideSlide();
+        }
+    }
+
+    function updateGuideSlide() {
+        // 更新当前图像和说明文字
+        document.getElementById('guideImage').src = guideSlides[currentSlide].img;
+        document.getElementById('guideCaption').innerHTML = guideSlides[currentSlide].text;
+        // 更新箭头的可见性
+        document.getElementById('prevArrow').style.visibility = currentSlide === 0 ? 'hidden' : 'visible';
+        document.getElementById('nextArrow').style.visibility = currentSlide === guideSlides.length - 1 ? 'hidden' : 'visible';
+
+        // 更新分页圆点
+        const dotsContainer = document.getElementById('sliderDots');
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < guideSlides.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot' + (i === currentSlide ? ' active' : '');
+            dotsContainer.appendChild(dot);
+        }
+    }
+</script>
+</body>
+</html>

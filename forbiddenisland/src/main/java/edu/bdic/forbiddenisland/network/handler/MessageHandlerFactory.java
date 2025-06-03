@@ -21,6 +21,7 @@ public class MessageHandlerFactory {
         HANDLERS.put(MessageType.DISCARD,   new DiscardHandler());
         HANDLERS.put(MessageType.GAME_WON,   new GameWonHandler());
         HANDLERS.put(MessageType.GAME_LOST,   new GameLostHandler());
+        HANDLERS.put(MessageType.ENGINEER_SHOREUP,   new EngineerShoreUpHandler());
 
         // 房间初始化（房主创建 & 玩家加入 共用同一个逻辑）
         RoomSetupHandler roomSetup = new RoomSetupHandler();

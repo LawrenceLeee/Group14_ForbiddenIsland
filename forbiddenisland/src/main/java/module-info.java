@@ -2,6 +2,7 @@ module edu.bdic.forbiddenisland {
     // JavaFX
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
 
     // Netty
     requires io.netty.common;

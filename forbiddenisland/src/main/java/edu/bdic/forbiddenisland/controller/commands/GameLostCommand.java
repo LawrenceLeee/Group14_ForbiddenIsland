@@ -2,10 +2,13 @@
 package edu.bdic.forbiddenisland.controller.commands;
 
 import edu.bdic.forbiddenisland.controller.SessionManager;
+import edu.bdic.forbiddenisland.model.GameModel;
 import edu.bdic.forbiddenisland.network.Message;
 import edu.bdic.forbiddenisland.network.MessageType;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import edu.bdic.forbiddenisland.util.GameDialogUtil;
+import edu.bdic.forbiddenisland.view.GameController;
 
 /**
  * 游戏失败命令
